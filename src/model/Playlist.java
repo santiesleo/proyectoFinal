@@ -7,10 +7,10 @@ public class Playlist {
     private ArrayList <Audio> audios;
     private String code;
 
-    public Playlist(String name, String code) {
-        this.name = name;
+    public Playlist() {
+        name="";
         audios = new ArrayList<Audio>();
-        this.code = code;
+        code="";
     }
 
     public String getName() {
