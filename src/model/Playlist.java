@@ -2,11 +2,17 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class Playlist {
     private String name;
     private ArrayList <Audio> audios;
     private String code;
 
+    /**
+     *
+     */
     public Playlist() {
         name="";
         audios = new ArrayList<Audio>();

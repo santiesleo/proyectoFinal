@@ -1,5 +1,8 @@
 package model;
 
+/**
+ *
+ */
 public class Producer extends User{
     private String name;
     private String profilePicture;

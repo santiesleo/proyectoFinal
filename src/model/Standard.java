@@ -1,5 +1,8 @@
 package model;
 
+/**
+ *
+ */
 public class Standard extends Consumer{
     private Playlist[] playlists;
     private Audio[] audios;

@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class Premium extends Consumer{
     private ArrayList<Playlist> playlists;
     private ArrayList<Audio> audios;

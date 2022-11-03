@@ -2,10 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class Creator extends Producer{
     private ArrayList <Podcast> podcasts;
 
-    public Creator(String nickname, String id, String name, String profilePicture, ArrayList<Podcast> podcasts) {
+    public Creator(String nickname, String id, String name, String profilePicture) {
         super(nickname, id, name, profilePicture);
         podcasts = new ArrayList<Podcast>();
     }
