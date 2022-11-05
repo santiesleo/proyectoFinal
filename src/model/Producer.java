@@ -3,7 +3,7 @@ package model;
 /**
  *
  */
-public class Producer extends User{
+public abstract class Producer extends User{
     private String name;
     private String profilePicture;
 
@@ -11,6 +11,15 @@ public class Producer extends User{
         super(nickname, id);
         this.name = name;
         this.profilePicture = profilePicture;
+    }
+
+    @Override
+    public String toString() {
+        return "Producer{" +
+                super.toString() +
+                "name='" + name + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
+                '}';
     }
 
     public String getName() {

@@ -3,7 +3,7 @@ package model;
 /**
  *
  */
-public class Consumer extends User{
+public abstract class Consumer extends User{
     private String name;
 
     /**
@@ -15,6 +15,14 @@ public class Consumer extends User{
     public Consumer(String nickname, String id, String name) {
         super(nickname, id);
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Consumer{" +
+                super.toString() +
+                "name='" + name + '\'' +
+                '}';
     }
 
     public String getName() {

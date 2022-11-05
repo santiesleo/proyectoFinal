@@ -16,26 +16,17 @@ public class NeoTunes {
 
     public String addUser(String nickname, String id, String name, String profilePicture, int typeProducer){
         String msg = "Usuario creado exitosamente";
-        User objU = searchUser(id);
+        User objUser = searchUser(id);
 
-        if (objU != null){
+        if (objUser != null){
             msg = "Error. El usuario ya está creado.\n";
         }else{
-            boolean status = isAvailableUser();
-            if (status){
-                boolean flag = false;
-                for (int i = 0; i < users.size() && !flag; i++){
-                    if(users.get(i) == null){
-                        if(typeProducer==1){
-                            users.set(i, new Creator(nickname, id, name, profilePicture));
-                        }else {
-                            users.set(i, new Artist(nickname, id, name, profilePicture));
-                        }
-                        flag=true;
-                    }
-                }
-            }else
-                msg = "Error. No existen espacios disponibles para crear otro usuario.\n";
+            if(typeProducer==1){
+                objUser = new Creator(nickname, id, name, profilePicture);
+            }else {
+                objUser = new Artist(nickname, id, name, profilePicture);
+            }
+            users.add(objUser);
         }
         return msg;
     }
@@ -47,21 +38,38 @@ public class NeoTunes {
         if (objUser != null){
             msg = "Error. El usuario ya está creado.\n";
         }else{
-            boolean status = isAvailableUser();
-            if (status){
-                boolean flag = false;
-                for (int i = 0; i < users.size() && !flag; i++){
-                    if(users.get(i) == null){
-                        if(typeConsumer==1){
-                            users.set(i, new Standard(nickname, id, name));
-                        }else {
-                            users.set(i, new Premium(nickname, id, name));
-                        }
-                        flag=true;
-                    }
-                }
-            }else
-                msg = "Error. No existen espacios disponibles para crear otro usuario.\n";
+            if(typeConsumer==1){
+                objUser = new Standard(nickname, id, name);
+            }else {
+                objUser = new Premium(nickname, id, name);
+            }
+            users.add(objUser);
+        }
+        return msg;
+    }
+
+    public String addAudio(String name, String duration, String album, String albumCover, double price, Genre typeGenre){
+        String msg = "Audio creado exitosamente";
+        Audio objAudio = searchAudio(name);
+
+        if (objAudio != null){
+            msg = "Error. El audio ya está creado.\n";
+        }else{
+            objAudio = new Song(name, duration, album, albumCover, price, typeGenre);
+            audios.add(objAudio);
+        }
+        return msg;
+    }
+
+    public String addAudio(String name, String duration, String description, String icon, Category category){
+        String msg = "Audio creado exitosamente";
+        Audio objAudio = searchAudio(name);
+
+        if (objAudio != null){
+            msg = "Error. El audio ya está creado.\n";
+        }else{
+            objAudio = new Podcast(name, duration, description, icon, category);
+            audios.add(objAudio);
         }
         return msg;
     }
@@ -78,28 +86,46 @@ public class NeoTunes {
         return objUser;
     }
 
-    public boolean isAvailableUser(){
-        boolean flag=false;
-        for (int i = 0; i < users.size() && !flag; i++) {
-            if(users.get(i) == null){
-                flag=true;
+    public Audio searchAudio(String name){
+        Audio objAudio = null;
+        boolean flag = false;
+        for (int i = 0; i < audios.size() && !flag; i++) {
+            if (audios.get(i).getName().equals(name)){
+                objAudio = audios.get(i);
+                flag = true;
             }
         }
-        return flag;
+        return objAudio;
     }
 
+    /**
+     *
+     * @return users
+     */
     public ArrayList<User> getUsers() {
         return users;
     }
 
+    /**
+     *
+     * @param users
+     */
     public void setUsers(ArrayList<User> users) {
         this.users = users;
     }
 
+    /**
+     *
+     * @return audios
+     */
     public ArrayList<Audio> getAudios() {
         return audios;
     }
 
+    /**
+     *
+     * @param audios
+     */
     public void setAudios(ArrayList<Audio> audios) {
         this.audios = audios;
     }

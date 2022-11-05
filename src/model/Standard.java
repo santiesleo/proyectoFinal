@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+
 /**
  *
  */
@@ -11,6 +13,15 @@ public class Standard extends Consumer{
         super(nickname, id, name);
         playlists = new Playlist[20];
         audios = new Audio[100];
+    }
+
+    @Override
+    public String toString() {
+        return "Standard{" +
+                super.toString() +
+                "playlists=" + Arrays.toString(playlists) +
+                ", audios=" + Arrays.toString(audios) +
+                '}';
     }
 
     public Playlist[] getPlaylists() {

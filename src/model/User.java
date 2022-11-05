@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  *
  */
-public class User {
+public abstract class User {
     private String nickname;
     private String id;
     private LocalDate bindingDate;
@@ -14,6 +14,15 @@ public class User {
         this.nickname = nickname;
         this.id = id;
         bindingDate = LocalDate.now();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "nickname='" + nickname + '\'' +
+                ", id='" + id + '\'' +
+                ", bindingDate=" + bindingDate +
+                '}';
     }
 
     public String getNickname() {
