@@ -14,6 +14,10 @@ public abstract class Consumer extends User{
         super(nickname, id);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Consumer{" +

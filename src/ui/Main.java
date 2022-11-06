@@ -10,6 +10,10 @@ public class Main {
     public static Scanner sc = new Scanner(System.in);
     public NeoTunes neoTunes = new NeoTunes();
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args){
         NeoTunes neoTunes = new NeoTunes();
         System.out.println(neoTunes.addUser("Santi1714", "112233", "jadjadjjs", 1));
@@ -18,6 +22,9 @@ public class Main {
         System.out.println(neoTunes.addAudio("112233", "Bellacoso", "3", "Hola", "jasjajsj", 19000, 2));
     }
 
+    /**
+     *
+     */
     public void menu(){
         boolean flag = false;
         while (!flag){
@@ -43,6 +50,9 @@ public class Main {
         }
     }
 
+    /**
+     *
+     */
     public void registerUser(){
         System.out.println("Digite el nickname del usuario: ");
         String nickname = sc.nextLine();
@@ -64,6 +74,11 @@ public class Main {
         }
     }
 
+    /**
+     *
+     * @param nickname
+     * @param id
+     */
     public void registerProducer(String nickname, String id){
         System.out.println("Ingrese la foto de perfil: ");
         String profilePicture = sc.nextLine();
@@ -73,6 +88,11 @@ public class Main {
         System.out.println(neoTunes.addUser(nickname, id, profilePicture, option));
     }
 
+    /**
+     *
+     * @param nickname
+     * @param id
+     */
     public void registerConsumer(String nickname, String id){
         System.out.println("1. Estándar\n" + "2. Premium\n" + "Qué tipo de consumidor requiere registrar:");
         int option = sc.nextInt();
@@ -80,6 +100,9 @@ public class Main {
         System.out.println(neoTunes.addUser(nickname, id, option));
     }
 
+    /**
+     *
+     */
     public void registerAudio(){
         System.out.println("Digite el id del productor del audio: ");
         String idProducer = sc.nextLine();
@@ -103,6 +126,12 @@ public class Main {
         }
     }
 
+    /**
+     *
+     * @param idProducer
+     * @param name
+     * @param duration
+     */
     public void registerSong(String idProducer, String name, String duration){
         System.out.println("Digite el nombre del álbum:");
         String album = sc.nextLine();
@@ -117,6 +146,12 @@ public class Main {
         System.out.println(neoTunes.addAudio(idProducer, name, duration, album, albumCover, price, typeSong));
     }
 
+    /**
+     *
+     * @param idProducer
+     * @param name
+     * @param duration
+     */
     public void registerPodcast(String idProducer, String name, String duration){
         System.out.println("Digite una descripción del podcast:");
         String description = sc.nextLine();
@@ -128,6 +163,9 @@ public class Main {
         System.out.println(neoTunes.addAudio(idProducer, name, duration, description, icon, option));
     }
 
+    /**
+     *
+     */
     public void pruebaMatriz(){
         int matriz[][],nFilas, nCol;
 

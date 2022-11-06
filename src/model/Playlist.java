@@ -10,15 +10,25 @@ public class Playlist {
     private ArrayList <Audio> audios;
     private int[][] matrixCode;
     private String code;
+    private TypePlaylist typePlaylist;
 
-    /**
-     *
-     */
-    public Playlist() {
-        name="";
+    public Playlist(String name, int option) {
+        this.name = name;
         audios = new ArrayList<Audio>();
-        code="";
         matrixCode = new int[6][6];
+        code = "";
+        switch (option){
+            case 1:
+                typePlaylist = TypePlaylist.SONG;
+                break;
+            case 2:
+                typePlaylist = TypePlaylist.PODCAST;
+                break;
+            case 3:
+                typePlaylist = TypePlaylist.BOTH;
+                break;
+        }
+
     }
 
     /**
@@ -75,5 +85,13 @@ public class Playlist {
 
     public void setMatrixCode(int[][] matrixCode) {
         this.matrixCode = matrixCode;
+    }
+
+    public TypePlaylist getTypePlaylist() {
+        return typePlaylist;
+    }
+
+    public void setTypePlaylist(TypePlaylist typePlaylist) {
+        this.typePlaylist = typePlaylist;
     }
 }

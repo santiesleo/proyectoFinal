@@ -1,5 +1,8 @@
 package model;
 
+/**
+ *
+ */
 public class Song extends Audio{
     private String album;
     private String albumCover;
@@ -7,6 +10,15 @@ public class Song extends Audio{
     private double price;
     private Genre typeGenre;
 
+    /**
+     *
+     * @param name
+     * @param duration
+     * @param album
+     * @param albumCover
+     * @param price
+     * @param option
+     */
     public Song(String name, String duration, String album, String albumCover, double price, int option) {
         super(name, duration);
         this.album = album;
@@ -29,6 +41,10 @@ public class Song extends Audio{
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Song{" +
@@ -41,42 +57,82 @@ public class Song extends Audio{
                 '}';
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAlbum() {
         return album;
     }
 
+    /**
+     *
+     * @param album
+     */
     public void setAlbum(String album) {
         this.album = album;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAlbumCover() {
         return albumCover;
     }
 
+    /**
+     *
+     * @param albumCover
+     */
     public void setAlbumCover(String albumCover) {
         this.albumCover = albumCover;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getSalesNumber() {
         return salesNumber;
     }
 
+    /**
+     *
+     * @param salesNumber
+     */
     public void setSalesNumber(int salesNumber) {
         this.salesNumber = salesNumber;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPrice() {
         return price;
     }
 
+    /**
+     *
+     * @param price
+     */
     public void setPrice(double price) {
         this.price = price;
     }
 
+    /**
+     *
+     * @return
+     */
     public Genre getTypeGenre() {
         return typeGenre;
     }
 
+    /**
+     *
+     * @param typeGenre
+     */
     public void setTypeGenre(Genre typeGenre) {
         this.typeGenre = typeGenre;
     }
