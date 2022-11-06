@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Artist extends Producer{
     private ArrayList <Song> songs;
 
-    public Artist(String nickname, String id, String name, String profilePicture) {
-        super(nickname, id, name, profilePicture);
+    public Artist(String nickname, String id, String profilePicture) {
+        super(nickname, id, profilePicture);
         songs = new ArrayList<Song>();
     }
 

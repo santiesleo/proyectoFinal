@@ -14,7 +14,15 @@ public class NeoTunes {
         audios = new ArrayList<Audio>();
     }
 
-    public String addUser(String nickname, String id, String name, String profilePicture, int typeProducer){
+    /**
+     *
+     * @param nickname
+     * @param id
+     * @param profilePicture
+     * @param typeProducer
+     * @return
+     */
+    public String addUser(String nickname, String id, String profilePicture, int typeProducer){
         String msg = "Usuario creado exitosamente";
         User objUser = searchUser(id);
 
@@ -22,16 +30,23 @@ public class NeoTunes {
             msg = "Error. El usuario ya está creado.\n";
         }else{
             if(typeProducer==1){
-                objUser = new Creator(nickname, id, name, profilePicture);
+                objUser = new Artist(nickname, id, profilePicture);
             }else {
-                objUser = new Artist(nickname, id, name, profilePicture);
+                objUser = new Creator(nickname, id, profilePicture);
             }
             users.add(objUser);
         }
         return msg;
     }
 
-    public String addUser(String nickname, String id, String name, int typeConsumer){
+    /**
+     *
+     * @param nickname
+     * @param id
+     * @param typeConsumer
+     * @return
+     */
+    public String addUser(String nickname, String id, int typeConsumer){
         String msg = "Usuario creado exitosamente";
         User objUser = searchUser(id);
 
@@ -39,41 +54,71 @@ public class NeoTunes {
             msg = "Error. El usuario ya está creado.\n";
         }else{
             if(typeConsumer==1){
-                objUser = new Standard(nickname, id, name);
+                objUser = new Standard(nickname, id);
             }else {
-                objUser = new Premium(nickname, id, name);
+                objUser = new Premium(nickname, id);
             }
             users.add(objUser);
         }
         return msg;
     }
 
-    public String addAudio(String name, String duration, String album, String albumCover, double price, Genre typeGenre){
+    /**
+     *
+     * @param id
+     * @param name
+     * @param duration
+     * @param album
+     * @param albumCover
+     * @param price
+     * @param option
+     * @return
+     */
+    public String addAudio(String id, String name, String duration, String album, String albumCover, double price, int option){
         String msg = "Audio creado exitosamente";
         Audio objAudio = searchAudio(name);
 
         if (objAudio != null){
             msg = "Error. El audio ya está creado.\n";
         }else{
-            objAudio = new Song(name, duration, album, albumCover, price, typeGenre);
+            objAudio = new Song(name, duration, album, albumCover, price, option);
             audios.add(objAudio);
+            Artist objArtist = (Artist) searchUser(id);
+            objArtist.getSongs().add((Song) objAudio);
         }
         return msg;
     }
 
-    public String addAudio(String name, String duration, String description, String icon, Category category){
+    /**
+     *
+     * @param id
+     * @param name
+     * @param duration
+     * @param description
+     * @param icon
+     * @param option
+     * @return
+     */
+    public String addAudio(String id, String name, String duration, String description, String icon, int option){
         String msg = "Audio creado exitosamente";
         Audio objAudio = searchAudio(name);
 
         if (objAudio != null){
             msg = "Error. El audio ya está creado.\n";
         }else{
-            objAudio = new Podcast(name, duration, description, icon, category);
+            objAudio = new Podcast(name, duration, description, icon, option);
             audios.add(objAudio);
+            Creator objCreator = (Creator) searchUser(id);
+            objCreator.getPodcasts().add((Podcast) objAudio);
         }
         return msg;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public User searchUser(String id){
         User objUser = null;
         boolean flag = false;
@@ -86,6 +131,11 @@ public class NeoTunes {
         return objUser;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Audio searchAudio(String name){
         Audio objAudio = null;
         boolean flag = false;

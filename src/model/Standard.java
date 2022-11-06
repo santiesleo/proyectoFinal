@@ -1,42 +1,64 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  *
  */
 public class Standard extends Consumer{
-    private Playlist[] playlists;
-    private Audio[] audios;
+    private ArrayList<Playlist> playlists;
+    private ArrayList<Audio> audios;
+    private int counterPlaylist;
+    private int counterAudios;
 
-    public Standard(String nickname, String id, String name) {
-        super(nickname, id, name);
-        playlists = new Playlist[20];
-        audios = new Audio[100];
+    public Standard(String nickname, String id) {
+        super(nickname, id);
+        playlists = new ArrayList<Playlist>();
+        audios = new ArrayList<Audio>();
+        setCounterPlaylist(0);
+        setCounterAudios(0);
     }
 
     @Override
     public String toString() {
         return "Standard{" +
-                super.toString() +
-                "playlists=" + Arrays.toString(playlists) +
-                ", audios=" + Arrays.toString(audios) +
+                "playlists=" + playlists +
+                ", audios=" + audios +
+                ", counterPlaylist=" + counterPlaylist +
+                ", counterAudios=" + counterAudios +
                 '}';
     }
 
-    public Playlist[] getPlaylists() {
+    public ArrayList<Playlist> getPlaylists() {
         return playlists;
     }
 
-    public void setPlaylists(Playlist[] playlists) {
+    public void setPlaylists(ArrayList<Playlist> playlists) {
         this.playlists = playlists;
     }
 
-    public Audio[] getAudios() {
+    public ArrayList<Audio> getAudios() {
         return audios;
     }
 
-    public void setAudios(Audio[] audios) {
+    public void setAudios(ArrayList<Audio> audios) {
         this.audios = audios;
+    }
+
+    public int getCounterPlaylist() {
+        return counterPlaylist;
+    }
+
+    public void setCounterPlaylist(int counterPlaylist) {
+        this.counterPlaylist = counterPlaylist;
+    }
+
+    public int getCounterAudios() {
+        return counterAudios;
+    }
+
+    public void setCounterAudios(int counterAudios) {
+        this.counterAudios = counterAudios;
     }
 }

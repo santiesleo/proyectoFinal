@@ -7,13 +7,26 @@ public class Song extends Audio{
     private double price;
     private Genre typeGenre;
 
-    public Song(String name, String duration, String album, String albumCover, double price, Genre typeGenre) {
+    public Song(String name, String duration, String album, String albumCover, double price, int option) {
         super(name, duration);
         this.album = album;
         this.albumCover = albumCover;
         salesNumber = 0;
         this.price = price;
-        this.typeGenre = typeGenre;
+        switch (option) {
+            case 1:
+                typeGenre = Genre.ROCK;
+                break;
+            case 2:
+                typeGenre = Genre.POP;
+                break;
+            case 3:
+                typeGenre = Genre.TRAP;
+                break;
+            case 4:
+                typeGenre = Genre.HOUSE;
+                break;
+        }
     }
 
     @Override

@@ -9,8 +9,8 @@ public class Premium extends Consumer{
     private ArrayList<Playlist> playlists;
     private ArrayList<Audio> audios;
 
-    public Premium(String nickname, String id, String name) {
-        super(nickname, id, name);
+    public Premium(String nickname, String id) {
+        super(nickname, id);
         playlists = new ArrayList<Playlist>();
         audios = new ArrayList<Audio>();
     }
