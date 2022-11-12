@@ -9,9 +9,73 @@ public class NeoTunes {
     private ArrayList<User> users;
     private ArrayList<Audio> audios;
 
+    /**
+     *
+     */
     public NeoTunes() {
         users = new ArrayList<User>();
         audios = new ArrayList<Audio>();
+    }
+
+    /**
+     *
+     * @param idConsumer
+     * @param namePlaylist
+     * @param optionPlaylist
+     * @param typeConsumer
+     * @return
+     */
+    public String createPlaylist(String idConsumer, String namePlaylist, int optionPlaylist, int typeConsumer){
+        String msg = "Playlist creada exitosamente";
+        User objU = searchUser(idConsumer);
+        if(objU==null){
+            msg = "El usuario no está creado, no se puede añadir playlist";
+        }else{
+            if(typeConsumer==1){//Consumidor estándar
+                Standard objUser = (Standard) searchUser(idConsumer);
+                if(objUser.getCounterPlaylist()<=20){
+                    Playlist playlist = new Playlist(namePlaylist, optionPlaylist);
+                    objUser.getPlaylists().add(playlist);
+                    objUser.setCounterPlaylist(+1);
+                }else
+                    msg = "El usuario " + idConsumer + " ya tiene el total de playlists creadas";
+            }else{
+                Premium objUser = (Premium) searchUser(idConsumer);
+                Playlist playlist = new Playlist(namePlaylist, optionPlaylist);
+                objUser.getPlaylists().add(playlist);
+            }
+        }
+        return msg;
+    }
+
+    //public String editPlaylist(String idConsumer, String namePlaylist, int option){
+
+    //}
+
+    public String sharePlaylist(String idConsumer, String namePlaylist, int typeConsumer){
+        String msg = "";
+        User objU = searchUser(idConsumer);
+        if(objU==null){
+            msg = "El usuario no está creado, no se puede compartir playlist";
+        }else {
+            if(typeConsumer==1){
+                Standard objUser = (Standard) searchUser(idConsumer);
+                for(Playlist playlist : objUser.getPlaylists()){
+                    if(playlist.getName().equalsIgnoreCase(namePlaylist)){
+                        if (playlist.getTypePlaylist()==TypePlaylist.SONG){
+                            msg = "Código: " + playlist.generateCodeN().toString();
+                        }else if (playlist.getTypePlaylist()==TypePlaylist.PODCAST){
+                            msg = "Código: " + playlist.generateCodeT();
+                        }else{
+                            msg = "Código: " + playlist.generateCodeStaggered();
+                        }
+                    }else {
+                        msg = "La playlist no está creada, no se puede compartir playlist";
+                    }
+                }
+            }
+        }
+        return msg;
     }
 
     /**

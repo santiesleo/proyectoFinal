@@ -18,8 +18,10 @@ public class Main {
         NeoTunes neoTunes = new NeoTunes();
         System.out.println(neoTunes.addUser("Santi1714", "112233", "jadjadjjs", 1));
         System.out.println(neoTunes.addUser("Juan123", "123", "nasndnams", 2));
+        System.out.println(neoTunes.addUser("Juan", "999", 1));
         System.out.println(neoTunes.addAudio("123", "Santiago Es El Mejor", "3", "Clásicos de Santiago", "jajdajkxax", 1));
         System.out.println(neoTunes.addAudio("112233", "Bellacoso", "3", "Hola", "jasjajsj", 19000, 2));
+        System.out.println(neoTunes.createPlaylist("999", "Hola", 1, 1));
     }
 
     /**
@@ -48,6 +50,12 @@ public class Main {
                     break;
             }
         }
+    }
+
+    public void createPlaylist(){
+        System.out.println("Digite el id del usuario: ");
+        String idConsumer = sc.nextLine();
+
     }
 
     /**
