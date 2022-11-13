@@ -21,7 +21,8 @@ public class Main {
         System.out.println(neoTunes.addUser("Juan", "999", 1));
         System.out.println(neoTunes.addAudio("123", "Santiago Es El Mejor", "3", "Clásicos de Santiago", "jajdajkxax", 1));
         System.out.println(neoTunes.addAudio("112233", "Bellacoso", "3", "Hola", "jasjajsj", 19000, 2));
-        System.out.println(neoTunes.createPlaylist("999", "Hola", 1, 1));
+        System.out.println(neoTunes.createPlaylist("999", "Hola", 1));
+        System.out.println(neoTunes.sharePlaylist("999", "Hola", 1));
     }
 
     /**
@@ -131,6 +132,14 @@ public class Main {
             default:
                 System.out.println("Opción desconocida, ingrese otra.");
                 break;
+        }
+    }
+
+    public void wait(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 

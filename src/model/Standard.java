@@ -6,11 +6,13 @@ import java.util.Arrays;
 /**
  *
  */
-public class Standard extends Consumer{
+public class Standard extends Consumer implements Playable{
     private ArrayList<Playlist> playlists;
     private ArrayList<Audio> audios;
+    private String[] advertising;
     private int counterPlaylist;
     private int counterAudios;
+    private int counterSongs;
 
     /**
      *
@@ -21,8 +23,35 @@ public class Standard extends Consumer{
         super(nickname, id);
         playlists = new ArrayList<Playlist>();
         audios = new ArrayList<Audio>();
+        advertising = new String[3];
+        advertising[0] = "Nike - Just Do It";
+        advertising[1] = "Coca-Cola - Open Happiness";
+        advertising[2] = "M&Ms - Melts in Your Mouth, Not in Your Hands";
         setCounterPlaylist(0);
         setCounterAudios(0);
+    }
+
+    @Override
+    public String playAudio(String name, ArrayList<Audio> audiosPrincipal) {
+        String msg = "";
+        for(Audio audio : audiosPrincipal){
+            if(audio.getName().equalsIgnoreCase(name)){
+                int index = (int)(Math.random()*(2-1))+1;
+                if(audio instanceof Song){
+                    if(counterSongs%2==0){
+                        msg = "Reproduciendo\n" + audio.getName() + "\n" + "Sponsored: " + advertising[index];
+                    }else {
+                        msg = "Reproduciendo\n" + audio.getName();
+                    }
+                    counterSongs++;
+                }else {
+                    msg = "Sponsored: " + advertising[index] + "\n" + "Reproduciendo\n" + audio.getName() ;
+                }
+            }else {
+                msg = "Audio no encontrado";
+            }
+        }
+        return msg;
     }
 
     /**
@@ -101,5 +130,21 @@ public class Standard extends Consumer{
      */
     public void setCounterAudios(int counterAudios) {
         this.counterAudios = counterAudios;
+    }
+
+    public String[] getAdvertising() {
+        return advertising;
+    }
+
+    public void setAdvertising(String[] advertising) {
+        this.advertising = advertising;
+    }
+
+    public int getCounterSongs() {
+        return counterSongs;
+    }
+
+    public void setCounterSongs(int counterSongs) {
+        this.counterSongs = counterSongs;
     }
 }

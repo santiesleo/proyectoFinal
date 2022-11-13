@@ -27,11 +27,9 @@ public abstract class Audio {
      */
     @Override
     public String toString() {
-        return "Audio{" +
-                "name='" + name + '\'' +
+        return "name='" + name + '\'' +
                 ", duration='" + duration + '\'' +
-                ", numberReproductions=" + numberReproductions +
-                '}';
+                ", numberReproductions=" + numberReproductions;
     }
 
     /**

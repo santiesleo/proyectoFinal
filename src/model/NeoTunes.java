@@ -22,16 +22,15 @@ public class NeoTunes {
      * @param idConsumer
      * @param namePlaylist
      * @param optionPlaylist
-     * @param typeConsumer
      * @return
      */
-    public String createPlaylist(String idConsumer, String namePlaylist, int optionPlaylist, int typeConsumer){
+    public String createPlaylist(String idConsumer, String namePlaylist, int optionPlaylist){
         String msg = "Playlist creada exitosamente";
         User objU = searchUser(idConsumer);
         if(objU==null){
             msg = "El usuario no está creado, no se puede añadir playlist";
         }else{
-            if(typeConsumer==1){//Consumidor estándar
+            if(objU instanceof Standard){//Consumidor estándar
                 Standard objUser = (Standard) searchUser(idConsumer);
                 if(objUser.getCounterPlaylist()<=20){
                     Playlist playlist = new Playlist(namePlaylist, optionPlaylist);
@@ -52,13 +51,20 @@ public class NeoTunes {
 
     //}
 
+    /**
+     *
+     * @param idConsumer
+     * @param namePlaylist
+     * @param typeConsumer
+     * @return
+     */
     public String sharePlaylist(String idConsumer, String namePlaylist, int typeConsumer){
         String msg = "";
         User objU = searchUser(idConsumer);
         if(objU==null){
             msg = "El usuario no está creado, no se puede compartir playlist";
         }else {
-            if(typeConsumer==1){
+            if(objU instanceof Standard){
                 Standard objUser = (Standard) searchUser(idConsumer);
                 for(Playlist playlist : objUser.getPlaylists()){
                     if(playlist.getName().equalsIgnoreCase(namePlaylist)){
@@ -74,9 +80,45 @@ public class NeoTunes {
                     }
                 }
             }
+            if(objU instanceof Premium){
+                Premium objUser = (Premium) searchUser(idConsumer);
+                for(Playlist playlist : objUser.getPlaylists()){
+                    if(playlist.getName().equalsIgnoreCase(namePlaylist)){
+                        if (playlist.getTypePlaylist()==TypePlaylist.SONG){
+                            msg = "Código: " + playlist.generateCodeN().toString();
+                        }else if (playlist.getTypePlaylist()==TypePlaylist.PODCAST){
+                            msg = "Código: " + playlist.generateCodeT();
+                        }else{
+                            msg = "Código: " + playlist.generateCodeStaggered();
+                        }
+                    }else {
+                        msg = "La playlist no está creada, no se puede compartir playlist";
+                    }
+                }
+            }
+
         }
         return msg;
     }
+
+    public String reproduceAudio(String idConsumer, String name){
+        String msg = "";
+        User objU = searchUser(idConsumer);
+        if(objU==null){
+            msg="El usuario no está creado";
+        }else{
+            if(objU instanceof Premium){
+                Premium objUser = (Premium) searchUser(idConsumer);
+                msg = objUser.playAudio(name, audios);
+            }else {
+                Standard objUser = (Standard) searchUser(idConsumer);
+                msg = objUser.playAudio(name, audios);
+            }
+
+        }
+        return msg;
+    }
+
 
     /**
      *

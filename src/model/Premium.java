@@ -1,11 +1,12 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
  */
-public class Premium extends Consumer{
+public class Premium extends Consumer implements Playable{
     private ArrayList<Playlist> playlists;
     private ArrayList<Audio> audios;
 
@@ -19,6 +20,20 @@ public class Premium extends Consumer{
         playlists = new ArrayList<Playlist>();
         audios = new ArrayList<Audio>();
     }
+
+    @Override
+    public String playAudio(String name, ArrayList<Audio> audiosPrincipal) {
+        String msg = "";
+        for(Audio audio : audiosPrincipal){
+            if(audio.getName().equalsIgnoreCase(name)){
+                msg = "Reproduciendo\n" + audio.getName();
+            }else {
+                msg = "Audio no encontrado, debe comprarlo";
+            }
+        }
+        return msg;
+    }
+
 
     /**
      *
