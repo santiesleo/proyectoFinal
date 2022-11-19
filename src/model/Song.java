@@ -19,7 +19,7 @@ public class Song extends Audio{
      * @param price
      * @param option
      */
-    public Song(String name, String duration, String album, String albumCover, double price, int option) {
+    public Song(String name, int duration, String album, String albumCover, double price, int option) {
         super(name, duration);
         this.album = album;
         this.albumCover = albumCover;

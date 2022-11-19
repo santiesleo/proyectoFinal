@@ -6,13 +6,15 @@ import java.util.ArrayList;
  *
  */
 public class Playlist {
+    private String identifier;
     private String name;
     private ArrayList <Audio> audios;
     private int[][] matrixCode;
     private StringBuilder code;
     private TypePlaylist typePlaylist;
 
-    public Playlist(String name, int option) {
+    public Playlist(String name, int option, String identifier) {
+        this.identifier = identifier;
         this.name = name;
         audios = new ArrayList<Audio>();
         matrixCode = new int[6][6];
@@ -140,5 +142,13 @@ public class Playlist {
 
     public void setTypePlaylist(TypePlaylist typePlaylist) {
         this.typePlaylist = typePlaylist;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }

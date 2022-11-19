@@ -16,7 +16,7 @@ public class Podcast extends Audio{
      * @param icon
      * @param option
      */
-    public Podcast(String name, String duration, String description, String icon, int option) {
+    public Podcast(String name, int duration, String description, String icon, int option) {
         super(name, duration);
         this.description = description;
         this.icon = icon;

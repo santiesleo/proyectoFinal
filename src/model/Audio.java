@@ -1,13 +1,11 @@
 package model;
 
-import java.time.Duration;
-
 /**
  *
  */
 public abstract class Audio {
     private String name;
-    private String duration;
+    private int duration;
     private int numberReproductions;
 
     /**
@@ -15,7 +13,7 @@ public abstract class Audio {
      * @param name
      * @param duration
      */
-    public Audio(String name, String duration) {
+    public Audio(String name, int duration) {
         this.name = name;
         this.duration = duration;
         numberReproductions = 0;
@@ -49,10 +47,9 @@ public abstract class Audio {
     }
 
     /**
-     *
      * @return
      */
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
@@ -60,9 +57,7 @@ public abstract class Audio {
      *
      * @param duration
      */
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
+    public void setDuration(int duration) {this.duration = duration;}
 
     /**
      *

@@ -14,15 +14,20 @@ public class Main {
      *
      * @param args
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         NeoTunes neoTunes = new NeoTunes();
         System.out.println(neoTunes.addUser("Santi1714", "112233", "jadjadjjs", 1));
         System.out.println(neoTunes.addUser("Juan123", "123", "nasndnams", 2));
         System.out.println(neoTunes.addUser("Juan", "999", 1));
-        System.out.println(neoTunes.addAudio("123", "Santiago Es El Mejor", "3", "Clásicos de Santiago", "jajdajkxax", 1));
-        System.out.println(neoTunes.addAudio("112233", "Bellacoso", "3", "Hola", "jasjajsj", 19000, 2));
+        System.out.println(neoTunes.addAudio("123", "Santiago", 3, "No sé", "jajdajkxax", 1));
+        System.out.println(neoTunes.addAudio("123", "Santiago2", 3, "No sé", "jajdajkxax", 1));
+        System.out.println(neoTunes.addAudio("112233", "The Nights", 3, "Hola", "jasjajsj", 19000, 2));
+        System.out.println(neoTunes.addAudio("112233", "The Nights", 3, "Hola", "jasjajsj", 19000, 2));
         System.out.println(neoTunes.createPlaylist("999", "Hola", 1));
         System.out.println(neoTunes.sharePlaylist("999", "Hola", 1));
+        System.out.println(neoTunes.reproduceAudio("999", "The Nights"));
+        System.out.println(neoTunes.reproduceAudio("999", "The Nights"));
+        System.out.println(neoTunes.reproduceAudio("999", "Santiago2"));
     }
 
     /**
@@ -118,7 +123,8 @@ public class Main {
         System.out.println("Digite el nombre del audio: ");
         String name = sc.nextLine();
         System.out.println("Digite la duración del audio: ");
-        String duration = sc.nextLine();
+        int duration = sc.nextInt();
+        sc.nextLine();
         System.out.println("1. Canción\n" + "2. Podcast\n" + "Qué tipo de audio requiere registrar:");
         int option = sc.nextInt();
         sc.nextLine();
@@ -149,7 +155,7 @@ public class Main {
      * @param name
      * @param duration
      */
-    public void registerSong(String idProducer, String name, String duration){
+    public void registerSong(String idProducer, String name, int duration){
         System.out.println("Digite el nombre del álbum:");
         String album = sc.nextLine();
         System.out.println("Ingrese la caratula del álbum:");
@@ -169,7 +175,7 @@ public class Main {
      * @param name
      * @param duration
      */
-    public void registerPodcast(String idProducer, String name, String duration){
+    public void registerPodcast(String idProducer, String name, int duration){
         System.out.println("Digite una descripción del podcast:");
         String description = sc.nextLine();
         System.out.println("Digite el ícono del podcast:");
