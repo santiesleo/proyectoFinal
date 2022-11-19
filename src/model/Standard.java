@@ -29,23 +29,26 @@ public class Standard extends Consumer implements Playable{
         advertising[2] = "M&Ms - Melts in Your Mouth, Not in Your Hands";
         setCounterPlaylist(0);
         setCounterAudios(0);
+        setCounterSongs(0);
     }
 
     @Override
     public String playAudio(String name, ArrayList<Audio> audiosPrincipal) {
         String msg = "";
-        for(Audio audio : audiosPrincipal){
-            if(audio.getName().equalsIgnoreCase(name)){
-                int index = (int)(Math.random()*(2-1))+1;
-                if(audio instanceof Song){
-                    if(counterSongs%2==0){
-                        msg = "Reproduciendo\n" + audio.getName() + "\n" + "Sponsored: " + advertising[index];
-                    }else {
-                        msg = "Reproduciendo\n" + audio.getName();
-                    }
+        boolean flag = false;
+        for(int i=0; i<audiosPrincipal.size() && !flag; i++){
+            if(audiosPrincipal.get(i).getName().equalsIgnoreCase(name)){
+                flag = true;
+                int index = (int)(Math.random()*(3-1))+1;
+                if(audiosPrincipal.get(i) instanceof Song){
                     counterSongs++;
+                    if(counterSongs%2==0){
+                        msg = "Reproduciendo\n" + audiosPrincipal.get(i).getName() + "\n" + "Sponsored by: " + advertising[index];
+                    }else {
+                        msg = "Reproduciendo\n" + audiosPrincipal.get(i).getName();
+                    }
                 }else {
-                    msg = "Sponsored: " + advertising[index] + "\n" + "Reproduciendo\n" + audio.getName() ;
+                    msg = "Sponsored by: " + advertising[index] + "\n" + "Reproduciendo\n" + audiosPrincipal.get(i).getName() ;
                 }
             }else {
                 msg = "Audio no encontrado";

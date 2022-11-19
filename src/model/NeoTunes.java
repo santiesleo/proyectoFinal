@@ -8,13 +8,21 @@ import java.util.ArrayList;
 public class NeoTunes {
     private ArrayList<User> users;
     private ArrayList<Audio> audios;
-
+    private int identifierPlaylist;
+    private ArrayList<Shop> sales;
     /**
      *
      */
     public NeoTunes() {
         users = new ArrayList<User>();
         audios = new ArrayList<Audio>();
+        sales = new ArrayList<Shop>();
+        identifierPlaylist = 0;
+    }
+
+    public String autogenerateCode(){
+        identifierPlaylist++;
+        return String.valueOf(identifierPlaylist);
     }
 
     /**
@@ -30,26 +38,125 @@ public class NeoTunes {
         if(objU==null){
             msg = "El usuario no está creado, no se puede añadir playlist";
         }else{
+            String identifier = autogenerateCode();
             if(objU instanceof Standard){//Consumidor estándar
                 Standard objUser = (Standard) searchUser(idConsumer);
                 if(objUser.getCounterPlaylist()<=20){
-                    Playlist playlist = new Playlist(namePlaylist, optionPlaylist);
+                    Playlist playlist = new Playlist(namePlaylist, optionPlaylist, identifier);
                     objUser.getPlaylists().add(playlist);
                     objUser.setCounterPlaylist(+1);
                 }else
                     msg = "El usuario " + idConsumer + " ya tiene el total de playlists creadas";
             }else{
                 Premium objUser = (Premium) searchUser(idConsumer);
-                Playlist playlist = new Playlist(namePlaylist, optionPlaylist);
+                Playlist playlist = new Playlist(namePlaylist, optionPlaylist, identifier);
                 objUser.getPlaylists().add(playlist);
             }
         }
         return msg;
     }
 
-    //public String editPlaylist(String idConsumer, String namePlaylist, int option){
+    public String addDeleteAudioPlaylist(String idConsumer, String namePlaylist, String nameAudio, int option){
+        String msg = "Cambio realizado exitosamente";
+        User objU = searchUser(idConsumer);
+        Audio objA = searchAudio(nameAudio);
 
-    //}
+        if(objU==null){
+            msg = "El usuario no está creado, no se puede añadir playlist";
+        }else {
+            if(option==1){//add
+                if(objU instanceof Standard){
+                    Standard objUser = (Standard) searchUser(idConsumer);
+                    for(Playlist playlist : objUser.getPlaylists()){
+                        if(playlist.getName().equalsIgnoreCase(namePlaylist)){
+                            playlist.getAudios().add(objA);
+                        }
+                    }
+                }else {
+                    Premium objUser = (Premium) searchUser(idConsumer);
+                    for(Playlist playlist : objUser.getPlaylists()){
+                        if(playlist.getName().equalsIgnoreCase(namePlaylist)){
+                            playlist.getAudios().add(objA);
+                        }
+                    }
+                }
+            } else if (option==2) {
+                if(objU instanceof Standard){
+                    Standard objUser = (Standard) searchUser(idConsumer);
+                    for(Playlist playlist : objUser.getPlaylists()){
+                        if(playlist.getName().equalsIgnoreCase(namePlaylist)){
+                            playlist.getAudios().remove(objA);
+                        }
+                    }
+                }else {
+                    Premium objUser = (Premium) searchUser(idConsumer);
+                    for(Playlist playlist : objUser.getPlaylists()){
+                        if(playlist.getName().equalsIgnoreCase(namePlaylist)){
+                            playlist.getAudios().remove(objA);
+                        }
+                    }
+                }
+            }
+        }
+        return msg;
+    }
+
+    public String editNamePlaylist(String idConsumer, String namePlaylist, String newNamePlaylist){
+        String msg = "Nombre de playlist actualizado correctamente";
+        User objU = searchUser(idConsumer);
+        if(objU==null){
+            msg = "El usuario no está creado, no se puede añadir playlist";
+        }else {
+            if(objU instanceof Standard){
+                Standard objUser = (Standard) searchUser(idConsumer);
+                for(Playlist playlist : objUser.getPlaylists()){
+                    if(playlist.getName().equalsIgnoreCase(namePlaylist)){
+                        playlist.setName(namePlaylist);
+                    }
+                }
+            }else {
+                if(objU instanceof Premium){
+                    Premium objUser = (Premium) searchUser(idConsumer);
+                    for(Playlist playlist : objUser.getPlaylists()){
+                        if(playlist.getName().equalsIgnoreCase(namePlaylist)){
+                            playlist.setName(namePlaylist);
+                        }
+                    }
+                }
+            }
+        }
+        return msg;
+    }
+
+    public double calculateCostSong(String nameSong){
+        double price = 0;
+        Song objA = (Song) searchAudio(nameSong);
+        price = objA.getPrice();
+        return price;
+    }
+
+    public String buySong(String idConsumer, String nameSong, double pay){
+        String msg = "";
+        Song objA = (Song) searchAudio(nameSong);
+        User objU = searchUser(idConsumer);
+        if(objA==null){
+            msg = "La canción no está disponible";
+        }else {
+            double totalShop=pay-calculateCostSong(nameSong);
+            if(totalShop<0){
+                msg = "Faltan: " + totalShop;
+            }else {
+                if(objU instanceof Standard){
+                    Standard objUser = (Standard) searchUser(idConsumer);
+                    objUser.getAudios().add(objA);
+                    Shop sale = new Shop(idConsumer);
+                    sales.add(sale);
+                    msg = "Compra realizada exitosamente, su devuelta es: " + totalShop;
+                }
+            }
+        }
+        return msg;
+    }
 
     /**
      *
@@ -69,11 +176,11 @@ public class NeoTunes {
                 for(Playlist playlist : objUser.getPlaylists()){
                     if(playlist.getName().equalsIgnoreCase(namePlaylist)){
                         if (playlist.getTypePlaylist()==TypePlaylist.SONG){
-                            msg = "Código: " + playlist.generateCodeN().toString();
+                            msg = playlist.generateCodeN().toString();
                         }else if (playlist.getTypePlaylist()==TypePlaylist.PODCAST){
-                            msg = "Código: " + playlist.generateCodeT();
+                            msg = playlist.generateCodeT();
                         }else{
-                            msg = "Código: " + playlist.generateCodeStaggered();
+                            msg = playlist.generateCodeStaggered();
                         }
                     }else {
                         msg = "La playlist no está creada, no se puede compartir playlist";
@@ -85,11 +192,11 @@ public class NeoTunes {
                 for(Playlist playlist : objUser.getPlaylists()){
                     if(playlist.getName().equalsIgnoreCase(namePlaylist)){
                         if (playlist.getTypePlaylist()==TypePlaylist.SONG){
-                            msg = "Código: " + playlist.generateCodeN().toString();
+                            msg = playlist.generateCodeN().toString();
                         }else if (playlist.getTypePlaylist()==TypePlaylist.PODCAST){
-                            msg = "Código: " + playlist.generateCodeT();
+                            msg = playlist.generateCodeT();
                         }else{
-                            msg = "Código: " + playlist.generateCodeStaggered();
+                            msg = playlist.generateCodeStaggered();
                         }
                     }else {
                         msg = "La playlist no está creada, no se puede compartir playlist";
@@ -101,6 +208,12 @@ public class NeoTunes {
         return msg;
     }
 
+    /**
+     *
+     * @param idConsumer
+     * @param name
+     * @return
+     */
     public String reproduceAudio(String idConsumer, String name){
         String msg = "";
         User objU = searchUser(idConsumer);
@@ -114,11 +227,9 @@ public class NeoTunes {
                 Standard objUser = (Standard) searchUser(idConsumer);
                 msg = objUser.playAudio(name, audios);
             }
-
         }
         return msg;
     }
-
 
     /**
      *
@@ -180,7 +291,7 @@ public class NeoTunes {
      * @param option
      * @return
      */
-    public String addAudio(String id, String name, String duration, String album, String albumCover, double price, int option){
+    public String addAudio(String id, String name, int duration, String album, String albumCover, double price, int option){
         String msg = "Audio creado exitosamente";
         Audio objAudio = searchAudio(name);
 
@@ -205,7 +316,7 @@ public class NeoTunes {
      * @param option
      * @return
      */
-    public String addAudio(String id, String name, String duration, String description, String icon, int option){
+    public String addAudio(String id, String name, int duration, String description, String icon, int option){
         String msg = "Audio creado exitosamente";
         Audio objAudio = searchAudio(name);
 
@@ -220,8 +331,6 @@ public class NeoTunes {
         return msg;
     }
 
-
-
     /**
      *
      * @param id
@@ -231,7 +340,7 @@ public class NeoTunes {
         User objUser = null;
         boolean flag = false;
         for (int i = 0; i < users.size() && !flag; i++) {
-            if (users.get(i) !=null && users.get(i).getId().equals(id)){
+            if (users.get(i).getId().equals(id)){
                 objUser = users.get(i);
                 flag = true;
             }
@@ -286,5 +395,21 @@ public class NeoTunes {
      */
     public void setAudios(ArrayList<Audio> audios) {
         this.audios = audios;
+    }
+
+    public int getIdentifierPlaylist() {
+        return identifierPlaylist;
+    }
+
+    public void setIdentifierPlaylist(int identifierPlaylist) {
+        this.identifierPlaylist = identifierPlaylist;
+    }
+
+    public ArrayList<Shop> getSales() {
+        return sales;
+    }
+
+    public void setSales(ArrayList<Shop> sales) {
+        this.sales = sales;
     }
 }

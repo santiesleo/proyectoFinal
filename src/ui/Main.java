@@ -2,31 +2,39 @@ package ui;
 
 import model.NeoTunes;
 import javax.swing.*;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
 
+    /**
+     * A global variable to read the data supplied by the user
+     */
     public static Scanner sc = new Scanner(System.in);
     public NeoTunes neoTunes = new NeoTunes();
 
     /**
-     *
-     * @param args
+     * <b>Main</b><br>
+     * This method runs the entire program.<br>
+     * @param args array receiving data from command line
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         NeoTunes neoTunes = new NeoTunes();
         System.out.println(neoTunes.addUser("Santi1714", "112233", "jadjadjjs", 1));
         System.out.println(neoTunes.addUser("Juan123", "123", "nasndnams", 2));
         System.out.println(neoTunes.addUser("Juan", "999", 1));
-        System.out.println(neoTunes.addAudio("123", "Santiago Es El Mejor", "3", "Clásicos de Santiago", "jajdajkxax", 1));
-        System.out.println(neoTunes.addAudio("112233", "Bellacoso", "3", "Hola", "jasjajsj", 19000, 2));
-        System.out.println(neoTunes.createPlaylist("999", "Hola", 1));
+        System.out.println(neoTunes.addAudio("123", "Santiago", 3, "No sé", "jajdajkxax", 1));
+        System.out.println(neoTunes.addAudio("123", "Santiago2", 3, "No sé", "jajdajkxax", 1));
+        System.out.println(neoTunes.addAudio("112233", "The Nights", 3, "Hola", "jasjajsj", 19000, 2));
+        System.out.println(neoTunes.addAudio("112233", "The Nights", 3, "Hola", "jasjajsj", 19000, 2));
+        System.out.println(neoTunes.createPlaylist("999", "Hola", 2));
         System.out.println(neoTunes.sharePlaylist("999", "Hola", 1));
+        System.out.println(neoTunes.reproduceAudio("999", "The Nights"));
+        System.out.println(neoTunes.reproduceAudio("999", "The Nights"));
+        System.out.println(neoTunes.reproduceAudio("999", "Santiago2"));
     }
 
     /**
-     *
+     * This method displays all the options menu
      */
     public void menu(){
         boolean flag = false;
@@ -60,7 +68,7 @@ public class Main {
     }
 
     /**
-     *
+     * This method register a user
      */
     public void registerUser(){
         System.out.println("Digite el nickname del usuario: ");
@@ -84,9 +92,7 @@ public class Main {
     }
 
     /**
-     *
-     * @param nickname
-     * @param id
+     * This method register a producer
      */
     public void registerProducer(String nickname, String id){
         System.out.println("Ingrese la foto de perfil: ");
@@ -98,9 +104,7 @@ public class Main {
     }
 
     /**
-     *
-     * @param nickname
-     * @param id
+     * This method register a consumer
      */
     public void registerConsumer(String nickname, String id){
         System.out.println("1. Estándar\n" + "2. Premium\n" + "Qué tipo de consumidor requiere registrar:");
@@ -110,7 +114,7 @@ public class Main {
     }
 
     /**
-     *
+     * This method register an audio
      */
     public void registerAudio(){
         System.out.println("Digite el id del productor del audio: ");
@@ -118,7 +122,8 @@ public class Main {
         System.out.println("Digite el nombre del audio: ");
         String name = sc.nextLine();
         System.out.println("Digite la duración del audio: ");
-        String duration = sc.nextLine();
+        int duration = sc.nextInt();
+        sc.nextLine();
         System.out.println("1. Canción\n" + "2. Podcast\n" + "Qué tipo de audio requiere registrar:");
         int option = sc.nextInt();
         sc.nextLine();
@@ -135,21 +140,10 @@ public class Main {
         }
     }
 
-    public void wait(int seconds) {
-        try {
-            Thread.sleep(seconds * 1000);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
     /**
-     *
-     * @param idProducer
-     * @param name
-     * @param duration
+     * This method register a song
      */
-    public void registerSong(String idProducer, String name, String duration){
+    public void registerSong(String idProducer, String name, int duration){
         System.out.println("Digite el nombre del álbum:");
         String album = sc.nextLine();
         System.out.println("Ingrese la caratula del álbum:");
@@ -164,12 +158,9 @@ public class Main {
     }
 
     /**
-     *
-     * @param idProducer
-     * @param name
-     * @param duration
+     * This method register a podcast
      */
-    public void registerPodcast(String idProducer, String name, String duration){
+    public void registerPodcast(String idProducer, String name, int duration){
         System.out.println("Digite una descripción del podcast:");
         String description = sc.nextLine();
         System.out.println("Digite el ícono del podcast:");
@@ -178,53 +169,5 @@ public class Main {
         int option = sc.nextInt();
         sc.nextLine();
         System.out.println(neoTunes.addAudio(idProducer, name, duration, description, icon, option));
-    }
-
-    /**
-     *
-     */
-    public void pruebaMatriz(){
-        int matriz[][],nFilas, nCol;
-
-        nFilas = Integer.parseInt(JOptionPane.showInputDialog("Digite el número de filas: "));
-        nCol = Integer.parseInt(JOptionPane.showInputDialog("Digite el número de columnas: "));
-
-        matriz = new int[nFilas][nCol];
-
-        for(int i = 0; i < matriz.length; i++){
-            for(int j = 0; j < matriz.length; j++){
-                matriz[i][j]= (int)(Math.random()*(10-1))+1;
-            }
-        }
-
-        /**
-         * System.out.println("Digite la matriz: ");
-         *         for(int i = 0; i<nFilas;i++){
-         *             for(int j = 0; j<nCol;j++){
-         *                 System.out.print("Matriz ["+i+"] ["+j+"]: " );
-         *                 matriz[i][j] = sc.nextInt();
-         *             }
-         *         }
-         */
-
-        System.out.println("\nLa matriz es: ");
-        for(int i=0; i<nFilas;i++){ //Primer for, recorrer número de filas
-            for(int j = 0; j<nCol;j++){  //Segundo for, recorrer número de columnas
-                System.out.print(matriz[i][j]);
-            }
-            System.out.println("");
-        }
-
-        System.out.println("");
-        StringBuilder code = new StringBuilder();
-
-        for(int i = matriz[0].length-1; i>-1;i--){
-            code.append(Integer.toString(matriz[i][0]));
-        }for(int i = 1; i<5;i++){
-            code.append(Integer.toString(matriz[i][i]));
-        }for(int i = matriz[0].length-1;i>-1;i--){
-            code.append(Integer.toString(matriz[i][5]));
-        }
-        System.out.println(code);
     }
 }

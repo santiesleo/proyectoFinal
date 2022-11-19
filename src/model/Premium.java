@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -28,7 +27,7 @@ public class Premium extends Consumer implements Playable{
             if(audio.getName().equalsIgnoreCase(name)){
                 msg = "Reproduciendo\n" + audio.getName();
             }else {
-                msg = "Audio no encontrado, debe comprarlo";
+                msg = "Audio no encontrado";
             }
         }
         return msg;

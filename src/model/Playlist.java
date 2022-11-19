@@ -6,13 +6,15 @@ import java.util.ArrayList;
  *
  */
 public class Playlist {
+    private String identifier;
     private String name;
     private ArrayList <Audio> audios;
     private int[][] matrixCode;
     private StringBuilder code;
     private TypePlaylist typePlaylist;
 
-    public Playlist(String name, int option) {
+    public Playlist(String name, int option, String identifier) {
+        this.identifier = identifier;
         this.name = name;
         audios = new ArrayList<Audio>();
         matrixCode = new int[6][6];
@@ -36,8 +38,20 @@ public class Playlist {
 
     }
 
+    public String showMatrix(){
+        String msg = "";
+        for(int i=0; i<matrixCode.length;i++){ //Primer for, recorrer número de filas
+            for(int j = 0; j<matrixCode.length;j++){  //Segundo for, recorrer número de columnas
+                msg+=(matrixCode[i][j]);
+            }
+            msg+="\n";
+        }
+        return msg;
+    }
+
+
     public StringBuilder generateCodeN(){
-        code = new StringBuilder();
+        code = new StringBuilder("Código: " );
         for(int i = matrixCode[0].length-1; i>-1;i--){
             code.append(Integer.toString(matrixCode[i][0]));
         }for(int i = 1; i<5;i++){
@@ -45,12 +59,12 @@ public class Playlist {
         }for(int i = matrixCode[0].length-1;i>-1;i--){
             code.append(Integer.toString(matrixCode[i][5]));
         }
-        return code;
+        return new StringBuilder(showMatrix()  + "\n" + code);
     }
 
     public String generateCodeT() {
 
-        code = new StringBuilder();
+        code = new StringBuilder("Código: " );
         for (int j = 0; j < matrixCode.length -4; j++) { // Gets the values of the first row, since column zero until column two
             code.append(matrixCode[0][j]);
         }
@@ -63,12 +77,12 @@ public class Playlist {
         for (int j = matrixCode.length -2; j < matrixCode.length; j++ ) { // Gets the values of the first row, since column four until column five
             code.append(matrixCode[0][j]);
         }
-        return code.toString();
+        return showMatrix()  + "\n" + code;
     }
 
     public String generateCodeStaggered() {
 
-        code = new StringBuilder();
+        code = new StringBuilder("Código: " );
         for (int i = matrixCode.length -1; i >= 0; i--) {
             for (int j = matrixCode.length -1; j >= 0 ; j--) {
                 if (((i + j) % 2 != 0) && ((i + j) > 1)) {
@@ -76,7 +90,7 @@ public class Playlist {
                 }
             }
         }
-        return code.toString();
+        return showMatrix()  + "\n" + code;
     }
 
     /**
@@ -140,5 +154,13 @@ public class Playlist {
 
     public void setTypePlaylist(TypePlaylist typePlaylist) {
         this.typePlaylist = typePlaylist;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }
