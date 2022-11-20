@@ -158,6 +158,10 @@ public class NeoTunes {
         return msg;
     }
 
+    public String buySong(String idConsumer, String nameSong){
+        return null;
+    }
+
     /**
      *
      * @param idConsumer
