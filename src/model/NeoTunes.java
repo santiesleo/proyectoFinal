@@ -88,6 +88,7 @@ public class NeoTunes {
                             playlist.getAudios().remove(objA);
                         }
                     }
+
                 }else {
                     Premium objUser = (Premium) searchUser(idConsumer);
                     for(Playlist playlist : objUser.getPlaylists()){
