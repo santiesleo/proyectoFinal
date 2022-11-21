@@ -7,7 +7,6 @@ public abstract class Audio {
     private String name;
     private int duration;
     private int numberReproductions;
-    private int numberSales;
 
     /**
      * <b>Constructor</b><br>
@@ -17,7 +16,6 @@ public abstract class Audio {
         this.name = name;
         this.duration = duration;
         numberReproductions = 0;
-        setNumberSales(0);
     }
 
     /**
@@ -74,21 +72,5 @@ public abstract class Audio {
      */
     public void setNumberReproductions(int numberReproductions) {
         this.numberReproductions = numberReproductions;
-    }
-
-    /**
-     *
-     * @return number sales
-     */
-    public int getNumberSales() {
-        return numberSales;
-    }
-
-    /**
-     *
-     * @param numberSales Number of sales
-     */
-    public void setNumberSales(int numberSales) {
-        this.numberSales = numberSales;
     }
 }

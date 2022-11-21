@@ -13,10 +13,10 @@ public class Premium extends Consumer implements Playable{
      * <b>Constructor</b><br>
      * This method is the constructor of the class Premium.<br>
      */
-    public Premium(String nickname, String id) {
+    public Premium(String nickname, String id, ArrayList<Audio> audios) {
         super(nickname, id);
         playlists = new ArrayList<Playlist>();
-        audios = new ArrayList<Audio>();
+        this.audios = audios;
     }
 
     /**

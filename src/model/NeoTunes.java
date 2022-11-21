@@ -25,7 +25,7 @@ import java.util.ArrayList;
          * <b>Inform number reproductions</b><br>
          * This method inform the total number of reproductions.<br>
          * <b>pre:</b> Must enter the data type correctly.<br>
-         * <b>post:</b> A inform of the reproductions of Songs or Podcasts.<br>
+         * <b>post:</b> An inform of the reproductions of Songs or Podcasts.<br>
          * @param option Type of audio
          * @return message
          */
@@ -52,6 +52,355 @@ import java.util.ArrayList;
                     }
                 }
                 msg+= "El total de reproducciones de Podcast, es: " + counter;
+        }
+        return msg;
+    }
+
+        /**
+         * <b>Inform genre of song most played</b><br>
+         * This method inform the genre most played.<br>
+         * <b>pre:</b> Must enter the data type correctly.<br>
+         * <b>post:</b> An inform of the genre most played.<br>
+         * @return message
+         */
+    public String informMostGenrePlayed(){
+        String msg = "";
+        int[] genreType = new int[4];
+        for (int i = 0; i < audios.size(); i++) {
+            if (audios.get(i) instanceof Song) {
+                Song song = (Song) audios.get(i);
+                if (song.getTypeGenre().equals(Genre.values()[0])) { // ROCK
+                    genreType[0] += song.getNumberReproductions();
+                } else if (song.getTypeGenre().equals(Genre.values()[1])) { // POP
+                    genreType[1] += song.getNumberReproductions();
+                } else if (song.getTypeGenre().equals(Genre.values()[2])) { // TRAP
+                    genreType[2] += song.getNumberReproductions();
+                } else if (song.getTypeGenre().equals(Genre.values()[3])) { // HOUSE
+                    genreType[3] += song.getNumberReproductions();
+                }
+            }
+        }
+        int max = 0;
+        int pos = -1;
+        for (int i = 0; i < genreType.length; i++) {
+            if (genreType[i] > max) {
+                max = genreType[i];
+                pos = i;
+            }
+        }
+        switch (pos) {
+            case 0:
+                msg = "El género más escuchado es: Rock, con un total de: " + max + " reproducciones";
+                break;
+            case 1:
+                msg = "El género más escuchado es: Pop, con un total de: " + max + " reproducciones";
+                break;
+            case 2:
+                msg = "El género más escuchado es: Trap, con un total de: " + max + " reproducciones";
+                break;
+            case 3:
+                msg = "El género más escuchado es: House, con un total de: " + max + " reproducciones";
+                break;
+        }
+        return msg;
+    }
+
+        /**
+         * <b>show user most played Song Genre</b><br>
+         * This method inform the genre most played.<br>
+         * <b>pre:</b> Must enter the data type correctly.<br>
+         * <b>post:</b> An inform of the genre most played.<br>
+         * @param idConsumer Identifier of the consumer
+         * @return message
+         */
+    public String showUserMostPlayedSongGenre(String idConsumer) {
+        String msg = "";
+        User user = searchUser(idConsumer);
+        int[] genreType = new int[4];
+        if (user == null) {
+            msg = "Error. El usuario no existe.";
+        }  else {
+            if (user instanceof Standard) {
+                Standard standard = (Standard) user; // Downcasting of User to Standard
+                for (int i = 0; i < standard.getAudios().size(); i++) {
+                    if (standard.getAudios().get(i) instanceof Song) {
+                        Song song = (Song) standard.getAudios().get(i);
+                        if (song.getTypeGenre().equals(Genre.values()[0])) { // ROCK
+                            genreType[0] += 1;
+                        } else if (song.getTypeGenre().equals(Genre.values()[1])) { // POP
+                            genreType[1] += 1;
+                        } else if (song.getTypeGenre().equals(Genre.values()[2])) { // TRAP
+                            genreType[2] += 1;
+                        } else if (song.getTypeGenre().equals(Genre.values()[3])) { // HOUSE
+                            genreType[3] += 1;
+                        }
+                    }
+                }
+                int max = 0;
+                int pos = -1;
+                for (int i = 0; i < genreType.length; i++) {
+                    if (genreType[i] > max) {
+                        max = genreType[i];
+                        pos = i;
+                    }
+                }
+                switch (pos) {
+                    case 0:
+                        msg = "El género más escuchado es: Rock, con un total de: " + max + " reproducciones";
+                        break;
+                    case 1:
+                        msg = "El género más escuchado es: Pop, con un total de: " + max + " reproducciones";
+                        break;
+                    case 2:
+                        msg = "El género más escuchado es: Trap, con un total de: " + max + " reproducciones";
+                        break;
+                    case 3:
+                        msg = "El género más escuchado es: House, con un total de: " + max + " reproducciones";
+                        break;
+                }
+            } else if (user instanceof Premium) {
+                Premium premium = (Premium) user; // Downcasting of User to Premium
+                for (int i = 0; i < premium.getAudios().size(); i++) {
+                    if (premium.getAudios().get(i) instanceof Song) {
+                        Song song = (Song) premium.getAudios().get(i);
+                        if (song.getTypeGenre().equals(Genre.values()[0])) { // ROCK
+                            genreType[0] += 1;
+                        } else if (song.getTypeGenre().equals(Genre.values()[1])) { // POP
+                            genreType[1] += 1;
+                        } else if (song.getTypeGenre().equals(Genre.values()[2])) { // TRAP
+                            genreType[2] += 1;
+                        } else if (song.getTypeGenre().equals(Genre.values()[3])) { // HOUSE
+                            genreType[3] += 1;
+                        }
+                    }
+                }
+                int max = 0;
+                int pos = -1;
+                for (int i = 0; i < genreType.length; i++) {
+                    if (genreType[i] > max) {
+                        max = genreType[i];
+                        pos = i;
+                    }
+                }
+                switch (pos) {
+                    case 0:
+                        msg = "El género más escuchado es: Rock, con un total de: " + max + " reproducciones";
+                        break;
+                    case 1:
+                        msg = "El género más escuchado es: Pop, con un total de: " + max + " reproducciones";
+                        break;
+                    case 2:
+                        msg = "El género más escuchado es: Trap, con un total de: " + max + " reproducciones";
+                        break;
+                    case 3:
+                        msg = "El género más escuchado es: House, con un total de: " + max + " reproducciones";
+                        break;
+                }
+            }
+        }
+        return msg;
+    }
+
+        /**
+         * <b>Show most played podcast category</b><br>
+         * This method inform the category most played.<br>
+         * <b>pre:</b> Must enter the data type correctly.<br>
+         * <b>post:</b> An inform of the category most played.<br>
+         * @return message
+         */
+    public String showMostPlayedPodcastCategory() {
+        String msg = "";
+        int[] podcastCategory = new int[4];
+        for (int i = 0; i < audios.size(); i++) {
+            if (audios.get(i) instanceof Podcast) {
+                Podcast podcast = (Podcast) audios.get(i);
+                if (podcast.getCategory().equals(Category.values()[0])) { // POLITICS
+                    podcastCategory[0] += podcast.getNumberReproductions();
+                } else if (podcast.getCategory().equals(Category.values()[1])) { // ENTERTAINMENT
+                    podcastCategory[1] += podcast.getNumberReproductions();
+                } else if (podcast.getCategory().equals(Category.values()[2])) { // VIDEOGAMES
+                    podcastCategory[2] += podcast.getNumberReproductions();
+                } else if (podcast.getCategory().equals(Category.values()[3])) { // FASHION
+                    podcastCategory[3] += podcast.getNumberReproductions();
+                }
+            }
+        }
+        int max = 0;
+        int pos = -1;
+        for (int i = 0; i < podcastCategory.length; i++) {
+            if (podcastCategory[i] > max) {
+                max = podcastCategory[i];
+                pos = i;
+            }
+        }
+        switch (pos) {
+            case 0:
+                msg = "La categoría más escuchada es: Política, con un total de: " + max + " reproducciones";
+                break;
+            case 1:
+                msg = "La categoría más escuchada es: Entretenimiento, con un total de: " + max + " reproducciones";
+                break;
+            case 2:
+                msg = "La categoría más escuchada es: Videojuegos, con un total de: " + max + " reproducciones";
+                break;
+            case 3:
+                msg = "La categoría más escuchada es: Moda, con un total de: " + max + " reproducciones";
+                break;
+        }
+        return msg;
+    }
+
+        /**
+         * <b>Show most played podcast category per user</b><br>
+         * This method inform the category most played.<br>
+         * <b>pre:</b> Must enter the data type correctly.<br>
+         * <b>post:</b> An inform of the category most played.<br>
+         * @return message
+         */
+    public String showUserMostPlayedPodcastCategory(String nameUser) {
+        String msg = "";
+        User user = searchUser(nameUser);
+        int[] podcastCategory = new int[4];
+        if (user == null) {
+            msg = "Error. El usuario no está creado";
+        }  else {
+            if (user instanceof Standard) {
+                Standard standard = (Standard) user; // Downcasting of User to Standard
+                for (int i = 0; i < standard.getAudios().size(); i++) {
+                    if (standard.getAudios().get(i) instanceof Podcast) {
+                        Podcast podcast = (Podcast) standard.getAudios().get(i);
+                        if (podcast.getCategory().equals(Category.values()[0])) { // POLITICS
+                            podcastCategory[0] += 1;
+                        } else if (podcast.getCategory().equals(Category.values()[1])) { // ENTERTAINMENT
+                            podcastCategory[1] += 1;
+                        } else if (podcast.getCategory().equals(Category.values()[2])) { // VIDEOGAMES
+                            podcastCategory[2] += 1;
+                        } else if (podcast.getCategory().equals(Category.values()[3])) { // FASHION
+                            podcastCategory[3] += 1;
+                        }
+                    }
+                }
+                int max = 0;
+                int pos = -1;
+                for (int i = 0; i < podcastCategory.length; i++) {
+                    if (podcastCategory[i] > max) {
+                        max = podcastCategory[i];
+                        pos = i;
+                    }
+                }
+                switch (pos) {
+                    case 0:
+                        msg = "La categoría más escuchada es: Política, con un total de: " + max + " reproducciones";
+                        break;
+                    case 1:
+                        msg = "La categoría más escuchada es: Entretenimiento, con un total de: " + max + " reproducciones";
+                        break;
+                    case 2:
+                        msg = "La categoría más escuchada es: Videojuegos, con un total de: " + max + " reproducciones";
+                        break;
+                    case 3:
+                        msg = "La categoría más escuchada es: Moda, con un total de: " + max + " reproducciones";
+                        break;
+                }
+            } else if (user instanceof Premium) {
+                Premium premium = (Premium) user; // Downcasting of User to Premium
+                for (int i = 0; i < premium.getAudios().size(); i++) {
+                    if (premium.getAudios().get(i) instanceof Podcast) {
+                        Podcast podcast = (Podcast) premium.getAudios().get(i);
+                        if (podcast.getCategory().equals(Category.values()[0])) { // POLITICS
+                            podcastCategory[0] += 1;
+                        } else if (podcast.getCategory().equals(Category.values()[1])) { // ENTERTAINMENT
+                            podcastCategory[1] += 1;
+                        } else if (podcast.getCategory().equals(Category.values()[2])) { // VIDEOGAMES
+                            podcastCategory[2] += 1;
+                        } else if (podcast.getCategory().equals(Category.values()[3])) { // FASHION
+                            podcastCategory[3] += 1;
+                        }
+                    }
+                }
+                int max = 0;
+                int pos = -1;
+                for (int i = 0; i < podcastCategory.length; i++) {
+                    if (podcastCategory[i] > max) {
+                        max = podcastCategory[i];
+                        pos = i;
+                    }
+                }
+                switch (pos) {
+                    case 0:
+                        msg = "La categoría más escuchada es: Política, con un total de: " + max + " reproducciones";
+                        break;
+                    case 1:
+                        msg = "La categoría más escuchada es: Entretenimiento, con un total de: " + max + " reproducciones";
+                        break;
+                    case 2:
+                        msg = "La categoría más escuchada es: Videojuegos, con un total de: " + max + " reproducciones";
+                        break;
+                    case 3:
+                        msg = "La categoría más escuchada es: Moda, con un total de: " + max + " reproducciones";
+                        break;
+                }
+            }
+        }
+        return msg;
+    }
+
+
+        /**
+         * <pre>
+         * <strong>Description:</strong> The method bubbleSort allows to sort the array descending
+         * <strong>pre:</strong> array must be initialized
+         * <strong>pos:</strong> Sort the array descending
+         * @param array </strong>int[]</strong> Array to sort
+         */
+        private void bubbleSort (int[] array) {
+            for (int i = 0; i < array.length; i++) {
+                for (int j = 0; j < array.length - 1; j++) {
+                    int currentItem = array[j],
+                            nextItem = array[j + 1];
+                    if (currentItem < nextItem) {
+                        array[j] = nextItem;
+                        array[j + 1] = currentItem;
+                    }
+                }
+            }
+        }
+    public String showTopArtist() {
+        ArrayList<Artist> artistsGlobal = new ArrayList<Artist>();
+        int[] artistsGlobalPlayed = new int[userList.size()], artistsGlobalPlayedWithoutRepeated = new int[userList.size()];
+        int count = 0, playedAux = 0, k = 0, top = 0;
+        String msg = "";
+        //Loop to fill array
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i) instanceof Artist) {
+                Artist artist = (Artist) userList.get(i);
+                if (artist.getTotalViews() != 0) {
+                    artistsGlobal.add(artist); // Fill array artist
+                    artistsGlobalPlayed[i] = artist.getTotalViews(); //Fill array global
+                }
+            }
+        }
+        //Bubble sort from largest to smallest
+        bubbleSort(artistsGlobalPlayed);
+        //Loop to remove duplicate elements
+        for (int i = 0; i < artistsGlobalPlayed.length; i++) {
+            playedAux = artistsGlobalPlayed[i];
+            if  (!isRepeated(artistsGlobalPlayedWithoutRepeated, playedAux)) {
+                artistsGlobalPlayedWithoutRepeated[k] = playedAux;
+                k++;
+            }
+        }
+        //Loop to compare and determine the podium
+        for (int i = 0; i < artistsGlobalPlayedWithoutRepeated.length; i++) {
+            for (int j = 0; j < artistsGlobal.size(); j++) {
+                if (count < 5) {
+                    if (artistsGlobal.get(j).getTotalViews() == artistsGlobalPlayedWithoutRepeated[i]) {
+                        msg += "\n" + (top+1) + ". " + artistsGlobal.get(j).getNameUser() + "          " + artistsGlobal.get(j).getTotalViews();
+                        count++;
+                        top++;
+                    }
+                }
+            }
         }
         return msg;
     }
@@ -215,16 +564,21 @@ import java.util.ArrayList;
         if(objA==null){
             msg = "La canción no está disponible";
         }else {
-            double totalShop=pay-calculateCostSong(nameSong);
-            if(totalShop<0){
-                msg = "Faltan: " + totalShop;
+            if(objU == null){
+                msg = "Error. El usuario no está creado";
             }else {
-                if(objU instanceof Standard){
-                    Standard objUser = (Standard) searchUser(idConsumer);
-                    objUser.getAudios().add(objA);
-                    Shop sale = new Shop(idConsumer);
-                    sales.add(sale);
-                    msg = "Compra realizada exitosamente, su devuelta es: " + totalShop;
+                double totalShop=pay-calculateCostSong(nameSong);
+                if(totalShop<0){
+                    msg = "Faltan: " + totalShop;
+                }else {
+                    if(objU instanceof Standard){
+                        Standard objUser = (Standard) searchUser(idConsumer);
+                        objUser.getAudios().add(objA);
+                        objA.setSalesNumber(objA.getSalesNumber()+1);
+                        Shop sale = new Shop(idConsumer);
+                        sales.add(sale);
+                        msg = "Compra realizada exitosamente, su devuelta es: " + totalShop;
+                    }
                 }
             }
         }
@@ -357,7 +711,7 @@ import java.util.ArrayList;
             if(typeConsumer==1){
                 objUser = new Standard(nickname, id);
             }else {
-                objUser = new Premium(nickname, id);
+                objUser = new Premium(nickname, id, audios);
             }
             users.add(objUser);
         }
