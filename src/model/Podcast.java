@@ -1,7 +1,7 @@
 package model;
 
 /**
- *
+ * The podcast class
  */
 public class Podcast extends Audio{
     private String description;
@@ -9,12 +9,8 @@ public class Podcast extends Audio{
     private Category category;
 
     /**
-     *
-     * @param name
-     * @param duration
-     * @param description
-     * @param icon
-     * @param option
+     * <b>Constructor</b><br>
+     * This method is the constructor of the class podcast.<br>
      */
     public Podcast(String name, int duration, String description, String icon, int option) {
         super(name, duration);
@@ -38,7 +34,7 @@ public class Podcast extends Audio{
 
     /**
      *
-     * @return
+     * @return The attributes of the user podcast
      */
     @Override
     public String toString() {
@@ -52,7 +48,7 @@ public class Podcast extends Audio{
 
     /**
      *
-     * @return
+     * @return description
      */
     public String getDescription() {
         return description;
@@ -60,7 +56,7 @@ public class Podcast extends Audio{
 
     /**
      *
-     * @param description
+     * @param description The description of the podcast
      */
     public void setDescription(String description) {
         this.description = description;
@@ -68,7 +64,7 @@ public class Podcast extends Audio{
 
     /**
      *
-     * @return
+     * @return icon
      */
     public String getIcon() {
         return icon;
@@ -76,7 +72,7 @@ public class Podcast extends Audio{
 
     /**
      *
-     * @param icon
+     * @param icon The icon of the podcast
      */
     public void setIcon(String icon) {
         this.icon = icon;
@@ -84,7 +80,7 @@ public class Podcast extends Audio{
 
     /**
      *
-     * @return
+     * @return category
      */
     public Category getCategory() {
         return category;
@@ -92,7 +88,7 @@ public class Podcast extends Audio{
 
     /**
      *
-     * @param category
+     * @param category The category of the podcast
      */
     public void setCategory(Category category) {
         this.category = category;

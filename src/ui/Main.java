@@ -19,6 +19,8 @@ public class Main {
      */
     public static void main(String[] args) {
         NeoTunes neoTunes = new NeoTunes();
+        Main main = new Main();
+        main.menu();
         System.out.println(neoTunes.addUser("Santi1714", "112233", "jadjadjjs", 1));
         System.out.println(neoTunes.addUser("Juan123", "123", "nasndnams", 2));
         System.out.println(neoTunes.addUser("Juan", "999", 1));
@@ -27,7 +29,7 @@ public class Main {
         System.out.println(neoTunes.addAudio("112233", "The Nights", 3, "Hola", "jasjajsj", 19000, 2));
         System.out.println(neoTunes.addAudio("112233", "The Nights", 3, "Hola", "jasjajsj", 19000, 2));
         System.out.println(neoTunes.createPlaylist("999", "Hola", 2));
-        System.out.println(neoTunes.sharePlaylist("999", "Hola", 1));
+        System.out.println(neoTunes.sharePlaylist("999", "Hola"));
         System.out.println(neoTunes.reproduceAudio("999", "The Nights"));
         System.out.println(neoTunes.reproduceAudio("999", "The Nights"));
         System.out.println(neoTunes.reproduceAudio("999", "Santiago2"));
@@ -39,7 +41,8 @@ public class Main {
     public void menu(){
         boolean flag = false;
         while (!flag){
-            System.out.println("1. Registrar un usuario\n" + "2. ");
+            System.out.println("1. Registrar un usuario\n" + "2. Registrar un audio\n" + "3. Crear una playlist\n" + "4. Editar una playlist\n" + "5. Compartir una playlist\n"
+                    + "6. Reproducir un audio\n" + "7. Comprar una canción\n" + "Ingrese la opción que desea realizar:");
             int option = sc.nextInt();
             sc.nextLine();
 
@@ -50,6 +53,23 @@ public class Main {
                 case 2:
                     registerAudio();
                     break;
+                case 3:
+                    createPlaylist();
+                    break;
+                case 4:
+                    editPlaylist();
+                    break;
+                case 5:
+                    sharePlaylist();
+                    break;
+                case 6:
+                    reproduceAudio();
+                    break;
+                case 7:
+                    buySong();
+                    break;
+                case 8:
+
                 case 10:
                     System.out.println("¡Hasta luego!");
                     flag = true;
@@ -59,12 +79,6 @@ public class Main {
                     break;
             }
         }
-    }
-
-    public void createPlaylist(){
-        System.out.println("Digite el id del usuario: ");
-        String idConsumer = sc.nextLine();
-
     }
 
     /**
@@ -169,5 +183,89 @@ public class Main {
         int option = sc.nextInt();
         sc.nextLine();
         System.out.println(neoTunes.addAudio(idProducer, name, duration, description, icon, option));
+    }
+
+    /**
+     * This method create a playlist
+     */
+    public void createPlaylist(){
+        System.out.println("Digite el identificador del usuario:");
+        String idConsumer = sc.nextLine();
+        System.out.println("Digite el nombre de la playlist:");
+        String namePlaylist = sc.nextLine();
+        System.out.println("1. Song\n2. Podcast\n3. Ambos\nIngrese el tipo de playlist:");
+        int optionPlaylist = sc.nextInt();
+        sc.nextLine();
+        System.out.println(neoTunes.createPlaylist(idConsumer, namePlaylist, optionPlaylist));
+    }
+
+    /**
+     * This method edit a playlist
+     */
+    public void editPlaylist(){
+        System.out.println("Ingrese el identificador del usuario:");
+        String idConsumer = sc.nextLine();
+        System.out.println("Ingrese el nombre de la playlist:");
+        String namePlaylist = sc.nextLine();
+        System.out.println("1. Cambiar el nombre de la playlist\n2. Añadir una canción\n3. Eliminar una canción\nIngrese la opción que desea realizar:");
+        int option = sc.nextInt();
+        sc.nextLine();
+        switch (option){
+            case 1:
+                System.out.println("Ingrese el nuevo nombre de la playlist:");
+                String newNamePlaylist = sc.nextLine();
+                System.out.println(neoTunes.editNamePlaylist(idConsumer, namePlaylist, newNamePlaylist));
+                break;
+            case 2:
+                System.out.println("Ingrese el nombre del audio:");
+                String nameAudio = sc.nextLine();
+                System.out.println(neoTunes.addDeleteAudioPlaylist(idConsumer, namePlaylist, nameAudio, option));
+                break;
+            case 3:
+                System.out.println("Ingrese el nombre del audio:");
+                String nameAudio2 = sc.nextLine();
+                System.out.println(neoTunes.addDeleteAudioPlaylist(idConsumer, namePlaylist, nameAudio2, option));
+                break;
+            default:
+                System.out.println("Opción desconocida");
+                break;
+        }
+    }
+
+    /**
+     * This method shares the playlist code
+     */
+    public void sharePlaylist(){
+        System.out.println("Ingrese el identificador del usuario:");
+        String idConsumer = sc.nextLine();
+        System.out.println("Ingrese el nombre de la playlist");
+        String namePlaylist = sc.nextLine();
+        System.out.println(neoTunes.sharePlaylist(idConsumer, namePlaylist));
+    }
+
+    /**
+     * This method reproduces an audio
+     */
+    public void reproduceAudio(){
+        System.out.println("Ingrese el identificador del usuario:");
+        String idConsumer = sc.nextLine();
+        System.out.println("Ingrese el nombre del audio:");
+        String nameAudio = sc.nextLine();
+        System.out.println(neoTunes.reproduceAudio(idConsumer, nameAudio));
+    }
+
+    /**
+     * This method buys a song
+     */
+    public void buySong() {
+        System.out.println("Ingrese el identificador del usuario:");
+        String idConsumer = sc.nextLine();
+        System.out.println("Ingrese el nombre de la canción:");
+        String nameSong = sc.nextLine();
+        System.out.println("El valor a pagar por esa canción, es: " + neoTunes.calculateCostSong(nameSong));
+        System.out.println("Ingrese el pago que va a realizar:");
+        double pay = sc.nextDouble();
+        sc.nextLine();
+        System.out.println(neoTunes.buySong(idConsumer, nameSong, pay));
     }
 }
