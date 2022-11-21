@@ -18,21 +18,8 @@ public class Main {
      * @param args array receiving data from command line
      */
     public static void main(String[] args) {
-        NeoTunes neoTunes = new NeoTunes();
         Main main = new Main();
         main.menu();
-        System.out.println(neoTunes.addUser("Santi1714", "112233", "jadjadjjs", 1));
-        System.out.println(neoTunes.addUser("Juan123", "123", "nasndnams", 2));
-        System.out.println(neoTunes.addUser("Juan", "999", 1));
-        System.out.println(neoTunes.addAudio("123", "Santiago", 3, "No sé", "jajdajkxax", 1));
-        System.out.println(neoTunes.addAudio("123", "Santiago2", 3, "No sé", "jajdajkxax", 1));
-        System.out.println(neoTunes.addAudio("112233", "The Nights", 3, "Hola", "jasjajsj", 19000, 2));
-        System.out.println(neoTunes.addAudio("112233", "The Nights", 3, "Hola", "jasjajsj", 19000, 2));
-        System.out.println(neoTunes.createPlaylist("999", "Hola", 2));
-        System.out.println(neoTunes.sharePlaylist("999", "Hola"));
-        System.out.println(neoTunes.reproduceAudio("999", "The Nights"));
-        System.out.println(neoTunes.reproduceAudio("999", "The Nights"));
-        System.out.println(neoTunes.reproduceAudio("999", "Santiago2"));
     }
 
     /**
@@ -42,7 +29,7 @@ public class Main {
         boolean flag = false;
         while (!flag){
             System.out.println("1. Registrar un usuario\n" + "2. Registrar un audio\n" + "3. Crear una playlist\n" + "4. Editar una playlist\n" + "5. Compartir una playlist\n"
-                    + "6. Reproducir un audio\n" + "7. Comprar una canción\n" + "Ingrese la opción que desea realizar:");
+                    + "6. Reproducir un audio\n" + "7. Comprar una canción\n" + "8. Generar informes con los datos registrados\n" + "Ingrese la opción que desea realizar:");
             int option = sc.nextInt();
             sc.nextLine();
 
@@ -69,7 +56,8 @@ public class Main {
                     buySong();
                     break;
                 case 8:
-
+                    informs();
+                    break;
                 case 10:
                     System.out.println("¡Hasta luego!");
                     flag = true;
@@ -267,5 +255,75 @@ public class Main {
         double pay = sc.nextDouble();
         sc.nextLine();
         System.out.println(neoTunes.buySong(idConsumer, nameSong, pay));
+    }
+
+    /**
+     * Statics
+     */
+    public void informs(){
+        System.out.println("1. Informar el acumulado total de reproducciones en toda la plataforma\n" + "2. Informar el género de canción más escuchado para un usuario específico y para toda la plataforma.\n" + "3.Informar la categoría de podcast más escuchada para un usuario específico y para toda la plataforma.\n" +
+                "4. De cada uno de los integrantes del Top 5 de artistas y del Top 5 de creadores de contenido en la plataforma, informar el nombre y número de reproducciones totales.\n" + "5. De cada uno de los integrantes del Top 10 de canciones y del Top 10 de podcast, informar el nombre, género o categoría y número total de reproducciones\n" +
+        "6. De cada género, informar el número de canciones vendidas y el valor total de ventas.\n" + "7. De la canción más vendida en la plataforma, informar el número total de ventas y el valor total de venta\n" + "Ingrese la opción que desea realizar:");
+        int option = sc.nextInt();
+        sc.nextLine();
+        switch (option){
+            case 1:
+                System.out.println(neoTunes.informReproductions(1));
+                System.out.println();
+                System.out.println(neoTunes.informReproductions(2));
+                break;
+            case 2:
+                System.out.println("1. Informar el género de canción más escuchado en toda la plataforma\n" + "2. Informar el género de canción más escuchado por un usuario.\n" + "Ingrese la opción que desea realizar:");
+                int optionInformGenre = sc.nextInt();
+                sc.nextLine();
+                switch (optionInformGenre){
+                    case 1:
+                        System.out.println(neoTunes.informMostGenrePlayed());
+                        break;
+                    case 2:
+                        System.out.println("Ingrese el id del usuario:");
+                        String idConsumer = sc.nextLine();
+                        System.out.println(neoTunes.showUserMostPlayedSongGenre(idConsumer));
+                        break;
+                }
+                break;
+            case 3:
+                System.out.println("1. Informar la categoría de podcast más escuchado en toda la plataforma\n" + "2. Informar la categoría de podcast más escuchado por un usuario.\n" + "Ingrese la opción que desea realizar:");
+                int optionInformCategory = sc.nextInt();
+                sc.nextLine();
+                switch (optionInformCategory){
+                    case 1:
+                        System.out.println(neoTunes.showMostPlayedPodcastCategory());
+                        break;
+                    case 2:
+                        System.out.println("Ingrese el id del usuario:");
+                        String idConsumer = sc.nextLine();
+                        System.out.println(neoTunes.showUserMostPlayedPodcastCategory(idConsumer));
+                        break;
+                }
+                break;
+            case 4:
+                System.out.println(neoTunes.showTopArtist());
+                System.out.println();
+                System.out.println(neoTunes.showTopContentCreator());
+                break;
+            case 5:
+                System.out.println(neoTunes.showTopSong());
+                System.out.println();
+                System.out.println(neoTunes.showTopPodcast());
+                break;
+            case 6:
+                System.out.println("1. Rock\n2. Pop\n3. Trap\n4. House"+"De qué género desea conocer la información:");
+                int genre = sc.nextInt();
+                sc.nextLine();
+                System.out.println(neoTunes.showInfoByGenreSong(genre));
+                break;
+            case 7:
+                System.out.println(neoTunes.showBestSellerSong());
+                break;
+            default:
+                System.out.println("Opción desconocida.");
+                break;
+        }
     }
 }
