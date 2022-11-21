@@ -346,60 +346,241 @@ import java.util.ArrayList;
     }
 
 
-        /**
-         * <pre>
-         * <strong>Description:</strong> The method bubbleSort allows to sort the array descending
-         * <strong>pre:</strong> array must be initialized
-         * <strong>pos:</strong> Sort the array descending
-         * @param array </strong>int[]</strong> Array to sort
-         */
-        private void bubbleSort (int[] array) {
-            for (int i = 0; i < array.length; i++) {
-                for (int j = 0; j < array.length - 1; j++) {
-                    int currentItem = array[j],
-                            nextItem = array[j + 1];
-                    if (currentItem < nextItem) {
-                        array[j] = nextItem;
-                        array[j + 1] = currentItem;
-                    }
+    /**
+     * <pre>
+     * <strong>Description:</strong> The method bubbleSort allows to sort the array descending
+     * <strong>pre:</strong> array must be initialized
+     * <strong>pos:</strong> Sort the array descending
+     * @param array </strong>int[]</strong> Array to sort
+     */
+    private void bubbleSort (int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length - 1; j++) {
+                int currentItem = array[j],
+                        nextItem = array[j + 1];
+                if (currentItem < nextItem) {
+                    array[j] = nextItem;
+                    array[j + 1] = currentItem;
                 }
             }
         }
+    }
+
+    /**
+     * <pre>
+     * <strong>Description:</strong> The method isRepeated allows to check if the element is already inside the array
+     * <strong>pre:</strong> array must be initialized
+     * <strong>pos:</strong> Determine if the element is already inside the array
+     * @param array </strong>int[]</strong> Array for save the elements without repeated
+     * @param aux </strong>int</strong> Aux to search
+     * @return stopFlag <strong>boolean</strong> Flag to know if the process was successful or not
+     * </pre>
+     */
+    private boolean isRepeated(int[] array, int aux) {
+        boolean stopFlag = false;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == aux) {
+                return stopFlag = true;
+            }
+        }
+        return stopFlag;
+    }
+
+
     public String showTopArtist() {
-        ArrayList<Artist> artistsGlobal = new ArrayList<Artist>();
-        int[] artistsGlobalPlayed = new int[userList.size()], artistsGlobalPlayedWithoutRepeated = new int[userList.size()];
+    ArrayList<Artist> artistsGlobal = new ArrayList<Artist>();
+    int[] artistsGlobalPlayed = new int[users.size()], artistsGlobalPlayedWithoutRepeated = new int[users.size()];
+    int count = 0, playedAux = 0, k = 0, top = 0;
+    String msg = "";
+    //Loop to fill array
+    for (int i = 0; i < users.size(); i++) {
+        if (users.get(i) instanceof Artist) {
+            Artist artist = (Artist) users.get(i);
+            if (artist.getTotalViews() != 0) {
+                artistsGlobal.add(artist); // Fill array artist
+                artistsGlobalPlayed[i] = artist.getTotalViews(); //Fill array global
+            }
+        }
+    }
+    //Bubble sort from largest to smallest
+    bubbleSort(artistsGlobalPlayed);
+    //Loop to remove duplicate elements
+    for (int i = 0; i < artistsGlobalPlayed.length; i++) {
+        playedAux = artistsGlobalPlayed[i];
+        if  (!isRepeated(artistsGlobalPlayedWithoutRepeated, playedAux)) {
+            artistsGlobalPlayedWithoutRepeated[k] = playedAux;
+            k++;
+        }
+    }
+    //Loop to compare and determine the podium
+    for (int i = 0; i < artistsGlobalPlayedWithoutRepeated.length; i++) {
+        for (int j = 0; j < artistsGlobal.size(); j++) {
+            if (count < 5) {
+                if (artistsGlobal.get(j).getTotalViews() == artistsGlobalPlayedWithoutRepeated[i]) {
+                    msg += "\n" + (top+1) + ". " + artistsGlobal.get(j).getNickname() + "          " + artistsGlobal.get(j).getTotalViews();
+                    count++;
+                    top++;
+                }
+            }
+        }
+    }
+    return msg;
+    }
+
+    public String showTopContentCreator() {
+
+        ArrayList<Creator> contentCreatorsGlobal = new ArrayList<Creator>();
+        int[] contentCreatorsGlobalPlayed = new int[users.size()], contentCreatorsGlobalPlayedWithoutRepeated = new int[users.size()];
         int count = 0, playedAux = 0, k = 0, top = 0;
         String msg = "";
         //Loop to fill array
-        for (int i = 0; i < userList.size(); i++) {
-            if (userList.get(i) instanceof Artist) {
-                Artist artist = (Artist) userList.get(i);
-                if (artist.getTotalViews() != 0) {
-                    artistsGlobal.add(artist); // Fill array artist
-                    artistsGlobalPlayed[i] = artist.getTotalViews(); //Fill array global
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i) instanceof Creator) {
+                Creator contentCreator = (Creator) users.get(i);
+                if (contentCreator.getTotalViews() != 0) {
+                    contentCreatorsGlobal.add(contentCreator); // Fill array artist
+                    contentCreatorsGlobalPlayed[i] = contentCreator.getTotalViews(); //Fill array global
                 }
             }
         }
         //Bubble sort from largest to smallest
-        bubbleSort(artistsGlobalPlayed);
+        bubbleSort(contentCreatorsGlobalPlayed);
         //Loop to remove duplicate elements
-        for (int i = 0; i < artistsGlobalPlayed.length; i++) {
-            playedAux = artistsGlobalPlayed[i];
-            if  (!isRepeated(artistsGlobalPlayedWithoutRepeated, playedAux)) {
-                artistsGlobalPlayedWithoutRepeated[k] = playedAux;
+        for (int i = 0; i < contentCreatorsGlobalPlayed.length; i++) {
+            playedAux = contentCreatorsGlobalPlayed[i];
+            if  (!isRepeated(contentCreatorsGlobalPlayedWithoutRepeated, playedAux)) {
+                contentCreatorsGlobalPlayedWithoutRepeated[k] = playedAux;
                 k++;
             }
         }
         //Loop to compare and determine the podium
-        for (int i = 0; i < artistsGlobalPlayedWithoutRepeated.length; i++) {
-            for (int j = 0; j < artistsGlobal.size(); j++) {
+        for (int i = 0; i < contentCreatorsGlobalPlayedWithoutRepeated.length; i++) {
+            for (int j = 0; j < contentCreatorsGlobal.size(); j++) {
                 if (count < 5) {
-                    if (artistsGlobal.get(j).getTotalViews() == artistsGlobalPlayedWithoutRepeated[i]) {
-                        msg += "\n" + (top+1) + ". " + artistsGlobal.get(j).getNameUser() + "          " + artistsGlobal.get(j).getTotalViews();
+                    if (contentCreatorsGlobal.get(j).getTotalViews() == contentCreatorsGlobalPlayedWithoutRepeated[i]) {
+                        msg += "\n" + (top+1) + ". " + contentCreatorsGlobal.get(j).getNickname() + "          " + contentCreatorsGlobal.get(j).getTotalViews();
                         count++;
                         top++;
                     }
                 }
+            }
+        }
+        return msg;
+    }
+
+    public String showTopSong() {
+        ArrayList<Song> songsGlobal = new ArrayList<Song>();
+        int[] songsGlobalPlayed = new int[users.size()], songsGlobalPlayedWithoutRepeated = new int[users.size()];
+        int count = 0, playedAux = 0, k = 0, top = 0;
+        String msg = "";
+        //Loop to fill array
+        for (int i = 0; i < audios.size(); i++) {
+            if (audios.get(i) instanceof Song) {
+                Song song = (Song) audios.get(i);
+                if (song.getNumberReproductions() != 0) {
+                    songsGlobal.add(song); // Fill array artist
+                    songsGlobalPlayed[i] = song.getNumberReproductions(); //Fill array global
+                }
+            }
+        }
+        //Bubble sort from largest to smallest
+        bubbleSort(songsGlobalPlayed);
+        //Loop to remove duplicate elements
+        for (int i = 0; i < songsGlobalPlayed.length; i++) {
+            playedAux = songsGlobalPlayed[i];
+            if  (!isRepeated(songsGlobalPlayedWithoutRepeated, playedAux)) {
+                songsGlobalPlayedWithoutRepeated[k] = playedAux;
+                k++;
+            }
+        }
+        //Loop to compare and determine the podium
+        for (int i = 0; i < songsGlobalPlayedWithoutRepeated.length; i++) {
+            for (int j = 0; j < songsGlobal.size(); j++) {
+                if (count < 10) {
+                    if (songsGlobal.get(j).getNumberReproductions() == songsGlobalPlayedWithoutRepeated[i]) {
+                        msg += "\n" + (top+1) + ". " + songsGlobal.get(j).getName() + "          " + songsGlobal.get(j).getTypeGenre() + "          " + songsGlobal.get(j).getNumberReproductions();
+                        count++;
+                        top++;
+                    }
+                }
+            }
+        }
+        return msg;
+    }
+
+    public String showTopPodcast() {
+        ArrayList<Podcast> podcastsGlobal = new ArrayList<Podcast>();
+        int[] podcastsGlobalPlayed = new int[users.size()], podcastsGlobalPlayedWithoutRepeated = new int[users.size()];
+        int count = 0, playedAux = 0, k = 0, top = 0;
+        String msg = "";
+        //Loop to fill array
+        for (int i = 0; i < audios.size(); i++) {
+            if (audios.get(i) instanceof Podcast) {
+                Podcast podcast = (Podcast) audios.get(i);
+                if (podcast.getNumberReproductions() != 0) {
+                    podcastsGlobal.add(podcast); // Fill array artist
+                    podcastsGlobalPlayed[i] = podcast.getNumberReproductions(); //Fill array global
+                }
+            }
+        }
+        //Bubble sort from largest to smallest
+        bubbleSort(podcastsGlobalPlayed);
+        //Loop to remove duplicate elements
+        for (int i = 0; i < podcastsGlobalPlayed.length; i++) {
+            playedAux = podcastsGlobalPlayed[i];
+            if  (!isRepeated(podcastsGlobalPlayedWithoutRepeated, playedAux)) {
+                podcastsGlobalPlayedWithoutRepeated[k] = playedAux;
+                k++;
+            }
+        }
+        //Loop to compare and determine the podium
+        for (int i = 0; i < podcastsGlobalPlayedWithoutRepeated.length; i++) {
+            for (int j = 0; j < podcastsGlobal.size(); j++) {
+                if (count < 10) {
+                    if (podcastsGlobal.get(j).getNumberReproductions() == podcastsGlobalPlayedWithoutRepeated[i]) {
+                        msg += "\n" + (top+1) + ". " + podcastsGlobal.get(j).getName() + "          " + podcastsGlobal.get(j).getCategory() + "          " + podcastsGlobal.get(j).getNumberReproductions();
+                        count++;
+                        top++;
+                    }
+                }
+            }
+        }
+        return msg;
+    }
+
+    public String showInfoByGenreSong(int genreType) {
+
+        int amountSales = 0;
+        double sellTotalValue = 0;
+        for (int i = 0; i < audios.size(); i++) {
+            if (audios.get(i) instanceof Song) {
+                Song song = (Song) audios.get(i);
+                if (song.getTypeGenre().equals(Genre.values()[genreType])) {
+                    amountSales += song.getSalesNumber();
+                    sellTotalValue += (song.getSalesNumber()*song.getPrice());
+                }
+            }
+        }
+        return "El número de canciones vendidas es: " + amountSales + " y el total en ventas es: $" + sellTotalValue;
+    }
+
+    public String showBestSellerSong() {
+        String msg = "Error, no hay canciones vendidas";
+        Song max = null;
+        for (int i = 0; i < audios.size(); i++) {
+            if (audios.get(i) instanceof Song) {
+                Song song = (Song) audios.get(i);
+                if (max == null) {
+                    max = song;
+                }
+                if (song.getSalesNumber() > max.getSalesNumber()) {
+                    max = song;
+                }
+            }
+        }
+        if (max != null) {
+            if (max.getSalesNumber() > 0) {
+                msg = "La canción más vendida es: " + max.getName() + ", con " + max.getSalesNumber() + " ventas, y el total en ventas es: $" + (max.getSalesNumber()*max.getPrice() + " ");
             }
         }
         return msg;
@@ -649,6 +830,7 @@ import java.util.ArrayList;
     public String reproduceAudio(String idConsumer, String nameAudio){
         String msg = "";
         User objU = searchUser(idConsumer);
+        Audio objA = searchAudio(nameAudio);
         if(objU==null){
             msg="El usuario no está creado";
         }else{
@@ -658,6 +840,36 @@ import java.util.ArrayList;
             }else {
                 Standard objUser = (Standard) searchUser(idConsumer);
                 msg = objUser.playAudio(nameAudio, audios);
+            }if(objA instanceof Song){
+                Song song = (Song) objA;
+                boolean flag = false;
+                for(int i = 0; i<users.size() && !flag; i++){
+                    if(users.get(i) instanceof Artist){
+                        Artist artist = (Artist) users.get(i);
+                        for(int j = 0; j<artist.getSongs().size()&&!flag; j++){
+                            if(artist.getSongs().get(j).equals(song)){
+                                artist.setTotalViews(artist.getTotalViews()+1);
+                                artist.setTotalTimePlayed(artist.getTotalTimePlayed()+song.getDuration());
+                                flag = true;
+                            }
+                        }
+                    }
+                }
+            }else if(objA instanceof Podcast){
+                Podcast podcast = (Podcast) objA;
+                boolean flag = false;
+                for(int i = 0; i<users.size() && !flag; i++){
+                    if(users.get(i) instanceof Creator){
+                        Creator creator = (Creator) users.get(i);
+                        for(int j = 0; j<creator.getPodcasts().size() && !flag; j++){
+                            if(creator.getPodcasts().get(j).equals(podcast)){
+                                creator.setTotalViews(creator.getTotalViews()+1);
+                                creator.setTotalTimePlayed(creator.getTotalTimePlayed()+podcast.getDuration());
+                                flag = true;
+                            }
+                        }
+                    }
+                }
             }
         }
         return msg;
