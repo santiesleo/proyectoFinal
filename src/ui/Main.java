@@ -167,7 +167,7 @@ public class Main {
         String description = sc.nextLine();
         System.out.println("Digite el ícono del podcast:");
         String icon = sc.nextLine();
-        System.out.println("1. Pítica\n" + "2. Entretenimiento\n" + "3. Videojuegos\n" + "4. Moda\n" + "Digite de qué tipo es el podcast:");
+        System.out.println("1. Política\n" + "2. Entretenimiento\n" + "3. Videojuegos\n" + "4. Moda\n" + "Digite de qué tipo es el podcast:");
         int option = sc.nextInt();
         sc.nextLine();
         System.out.println(neoTunes.addAudio(idProducer, name, duration, description, icon, option));
@@ -181,7 +181,7 @@ public class Main {
         String idConsumer = sc.nextLine();
         System.out.println("Digite el nombre de la playlist:");
         String namePlaylist = sc.nextLine();
-        System.out.println("1. Song\n2. Podcast\n3. Ambos\nIngrese el tipo de playlist:");
+        System.out.println("1. Canción\n2. Podcast\n3. Ambos\nIngrese el tipo de playlist:");
         int optionPlaylist = sc.nextInt();
         sc.nextLine();
         System.out.println(neoTunes.createPlaylist(idConsumer, namePlaylist, optionPlaylist));

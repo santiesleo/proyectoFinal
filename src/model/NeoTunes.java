@@ -38,7 +38,7 @@ import java.util.ArrayList;
                     if(audios.get(i) instanceof Song){
                         counter+=audios.get(i).getNumberReproductions();
                         int pos = i+1;
-                        msg = pos + audios.get(i).getName() + "total de reproducciones: " + audios.get(i).getNumberReproductions() + "\n";
+                        msg = pos + " " + audios.get(i).getName() + " total de reproducciones: " + audios.get(i).getNumberReproductions() + "\n";
                     }
                 }
                 msg+= "El total de reproducciones de Canciones, es: " + counter;
@@ -48,7 +48,7 @@ import java.util.ArrayList;
                     if(audios.get(i) instanceof Podcast){
                         counter+=audios.get(i).getNumberReproductions();
                         int pos = i+1;
-                        msg = pos + audios.get(i).getName() + "total de reproducciones: " + audios.get(i).getNumberReproductions() + "\n";
+                        msg = pos + " " + audios.get(i).getName() + " total de reproducciones: " + audios.get(i).getNumberReproductions() + "\n";
                     }
                 }
                 msg+= "El total de reproducciones de Podcast, es: " + counter;
