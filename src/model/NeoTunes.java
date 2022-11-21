@@ -31,22 +31,27 @@ import java.util.ArrayList;
          */
     public String informReproductions(int option){
         String msg = "";
+        int counter = 0;
         switch (option){//Song
             case 1:
                 for(int i=0; i<audios.size(); i++){
                     if(audios.get(i) instanceof Song){
+                        counter+=audios.get(i).getNumberReproductions();
                         int pos = i+1;
                         msg = pos + audios.get(i).getName() + "total de reproducciones: " + audios.get(i).getNumberReproductions() + "\n";
                     }
                 }
+                msg+= "El total de reproducciones de Canciones, es: " + counter;
             break;
             case 2:
                 for(int i=0; i<audios.size(); i++){
                     if(audios.get(i) instanceof Podcast){
+                        counter+=audios.get(i).getNumberReproductions();
                         int pos = i+1;
                         msg = pos + audios.get(i).getName() + "total de reproducciones: " + audios.get(i).getNumberReproductions() + "\n";
                     }
                 }
+                msg+= "El total de reproducciones de Podcast, es: " + counter;
         }
         return msg;
     }
