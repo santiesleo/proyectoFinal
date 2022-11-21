@@ -367,14 +367,12 @@ import java.util.ArrayList;
     }
 
     /**
-     * <pre>
      * <strong>Description:</strong> The method isRepeated allows to check if the element is already inside the array
      * <strong>pre:</strong> array must be initialized
      * <strong>pos:</strong> Determine if the element is already inside the array
      * @param array </strong>int[]</strong> Array for save the elements without repeated
      * @param aux </strong>int</strong> Aux to search
      * @return stopFlag <strong>boolean</strong> Flag to know if the process was successful or not
-     * </pre>
      */
     private boolean isRepeated(int[] array, int aux) {
         boolean stopFlag = false;
@@ -386,7 +384,13 @@ import java.util.ArrayList;
         return stopFlag;
     }
 
-
+        /**
+         * <b>Show top artist</b><br>
+         * This method show the top of artist.<br>
+         * <b>pre:</b> Must enter the data type correctly.<br>
+         * <b>post:</b> An inform of the top 5 artist.<br>
+         * @return message
+         */
     public String showTopArtist() {
     ArrayList<Artist> artistsGlobal = new ArrayList<Artist>();
     int[] artistsGlobalPlayed = new int[users.size()], artistsGlobalPlayedWithoutRepeated = new int[users.size()];
@@ -427,8 +431,14 @@ import java.util.ArrayList;
     return msg;
     }
 
+        /**
+         * <b>Show top content creator</b><br>
+         * This method show the top of content creator.<br>
+         * <b>pre:</b> Must enter the data type correctly.<br>
+         * <b>post:</b> An inform of the top 5 content creator.<br>
+         * @return message
+         */
     public String showTopContentCreator() {
-
         ArrayList<Creator> contentCreatorsGlobal = new ArrayList<Creator>();
         int[] contentCreatorsGlobalPlayed = new int[users.size()], contentCreatorsGlobalPlayedWithoutRepeated = new int[users.size()];
         int count = 0, playedAux = 0, k = 0, top = 0;
@@ -468,6 +478,13 @@ import java.util.ArrayList;
         return msg;
     }
 
+        /**
+         * <b>Show top song</b><br>
+         * This method show the top of song.<br>
+         * <b>pre:</b> Must enter the data type correctly.<br>
+         * <b>post:</b> An inform of the top 10 songs.<br>
+         * @return message
+         */
     public String showTopSong() {
         ArrayList<Song> songsGlobal = new ArrayList<Song>();
         int[] songsGlobalPlayed = new int[users.size()], songsGlobalPlayedWithoutRepeated = new int[users.size()];
@@ -508,6 +525,13 @@ import java.util.ArrayList;
         return msg;
     }
 
+        /**
+         * <b>Show top podcast</b><br>
+         * This method show the top of podcast.<br>
+         * <b>pre:</b> Must enter the data type correctly.<br>
+         * <b>post:</b> An inform of the top 10 podcast.<br>
+         * @return message
+         */
     public String showTopPodcast() {
         ArrayList<Podcast> podcastsGlobal = new ArrayList<Podcast>();
         int[] podcastsGlobalPlayed = new int[users.size()], podcastsGlobalPlayedWithoutRepeated = new int[users.size()];
@@ -548,8 +572,15 @@ import java.util.ArrayList;
         return msg;
     }
 
+        /**
+         * <b>Show info per genre song</b><br>
+         * This method inform the statics for each genre.<br>
+         * <b>pre:</b> Must enter the data type correctly.<br>
+         * <b>post:</b> An inform for each genre.<br>
+         * @param genreType Genre type of the song
+         * @return message
+         */
     public String showInfoByGenreSong(int genreType) {
-
         int amountSales = 0;
         double sellTotalValue = 0;
         for (int i = 0; i < audios.size(); i++) {
@@ -564,6 +595,13 @@ import java.util.ArrayList;
         return "El número de canciones vendidas es: " + amountSales + " y el total en ventas es: $" + sellTotalValue;
     }
 
+        /**
+         * <b>Show best seller song</b><br>
+         * This method show the best seller song.<br>
+         * <b>pre:</b> Must enter the data type correctly.<br>
+         * <b>post:</b> An inform of the best seller song.<br>
+         * @return message
+         */
     public String showBestSellerSong() {
         String msg = "Error, no hay canciones vendidas";
         Song max = null;
